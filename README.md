@@ -7,4 +7,4 @@ Open `index.html` in a browser or use VS Code Live Server.
 
 ## Customize
 Replace `Your Name`, email, LinkedIn, GitHub, and add `assets/cv.pdf`.
-FilmFinder is already linked to the GitHub repository.
+Featured Projects currently includes Film Finder, Fountain Hide, and SUAP Smart QR Ordering with their live demos and repository links.

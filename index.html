@@ -6,6 +6,20 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Albert Rafael Sinaga | Software Developer</title>
     <meta name="description" content="Portofolio Albert Rafael Sinaga, mahasiswa Informatika Universitas Gunadarma yang membangun aplikasi web dengan Python dan Flask.">
+    <meta name="author" content="Albert Rafael Sinaga">
+    <meta name="theme-color" content="#07101d">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Albert Rafael Sinaga | Software Developer">
+    <meta property="og:description" content="Portofolio Albert Rafael Sinaga, mahasiswa Informatika Universitas Gunadarma yang membangun aplikasi web dengan Python dan Flask.">
+    <meta property="og:image" content="assets/foto.jpg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Albert Rafael Sinaga | Software Developer">
+    <meta name="twitter:description" content="Portofolio Albert Rafael Sinaga, mahasiswa Informatika Universitas Gunadarma yang membangun aplikasi web dengan Python dan Flask.">
+    <meta name="twitter:image" content="assets/foto.jpg">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -58,7 +72,7 @@
         <!-- STATISTIK -->
         <section class="section stats">
             <div><b data-count="3">0</b><small>Certificates</small></div>
-            <div><b data-count="1">0</b><small>Featured Project</small></div>
+            <div><b data-count="3">0</b><small>Featured Projects</small></div>
             <div><b data-count="12">0</b><small>Technologies</small></div>
             <div><b data-count="3" data-suffix="+">0</b><small>Years Learning</small></div>
         </section>
@@ -76,7 +90,7 @@
                     through hands-on development.</p>
                 <div class="facts">
                     <div>🎓 <b>Education</b><small>Informatics · Universitas Gunadarma</small></div>
-                    <div>💻 <b>Focus</b><small>Software Development &amp Web</small></div>
+                    <div>💻 <b>Focus</b><small>Software Development &amp; Web</small></div>
                     <div>📍 <b>Location</b><small>Indonesia</small></div>
                     <div>✉ <b>Email</b><small>albertrafaelsinaga@gmail.com</small></div>
                 </div>
@@ -113,21 +127,70 @@
             <article class="project">
                 <div class="preview shot">
                     <div class="bar"><i></i><i></i><i></i></div>
-                    <img src="assets/filmfinder.jpg" alt="Tampilan website FilmFinder" loading="lazy">
+                    <img src="assets/filmfinder.jpg" alt="Tampilan website Film Finder" loading="lazy">
                 </div>
                 <div class="info">
                     <b class="badge">FEATURED</b>
-                    <h3>FilmFinder</h3>
+                    <h3>Film Finder</h3>
                     <p class="sub">Content-Based Movie Recommendation System</p>
                     <p class="muted">
-                        A web-based movie recommendation system that suggests films based on their genre,
-                        description, and rating. It uses content-based similarity with TF-IDF, cosine similarity,
-                        and semantic keyword matching to generate recommendations.
+                        A web-based movie recommendation system that suggests films based on shared genres and plot
+                        summaries. It uses TF-IDF and cosine similarity, with ratings to help rank recommendations.
                     </p>
                     <div class="tags">
-                        <span>Python</span><span>Flask</span><span>Pandas</span><span>TMDB API</span>
+                        <span>Python</span><span>Flask</span><span>Pandas</span><span>TMDB API</span><span>Vercel</span>
                     </div>
-                    <a class="btn primary small" href="https://github.com/albrt789/FilmFinder" target="_blank">GitHub ↗</a>
+                    <div class="actions" style="margin: 20px 0 0; gap: 10px;">
+                        <a class="btn primary small" href="https://film-finder-navy.vercel.app/" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+                        <a class="btn small" href="https://github.com/albrt789/film-finder" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="project">
+                <div class="preview shot">
+                    <div class="bar"><i></i><i></i><i></i></div>
+                    <img src="assets/fountain.jpg" alt="Tampilan website Fountain Hide" loading="lazy">
+                </div>
+                <div class="info">
+                    <b class="badge">FEATURED</b>
+                    <h3>Fountain Hide</h3>
+                    <p class="sub">Coffee Shop Company Profile &amp; Landing Page</p>
+                    <p class="muted">
+                        A modern and responsive company profile website for Fountain Hide coffee shop in Depok.
+                        Features interactive menu showcases, customer feedback note form, table reservation,
+                        photo gallery lightbox, and smooth micro-interactions.
+                    </p>
+                    <div class="tags">
+                        <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Vercel</span>
+                    </div>
+                    <div class="actions" style="margin: 20px 0 0; gap: 10px;">
+                        <a class="btn primary small" href="https://fountain-olive.vercel.app/" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+                        <a class="btn small" href="https://github.com/albrt789/company-profile-fountain" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="project">
+                <div class="preview shot">
+                    <div class="bar"><i></i><i></i><i></i></div>
+                    <img src="assets/smart-ordering.jpg" alt="Tampilan website SUAP Smart Ordering" loading="lazy">
+                </div>
+                <div class="info">
+                    <b class="badge">FULL-STACK</b>
+                    <h3>SUAP. — Smart QR Ordering</h3>
+                    <p class="sub">Dine-In QR Ordering System &amp; Kitchen Display</p>
+                    <p class="muted">
+                        A comprehensive restaurant smart ordering system built with Laravel, Blade, and MySQL.
+                        Features table-based QR menu ordering, Kitchen Display System (KDS), tent card generator,
+                        and an integrated AI assistant (Groq API) for ingredient and allergen consultation.
+                    </p>
+                    <div class="tags">
+                        <span>PHP</span><span>Laravel</span><span>MySQL</span><span>Blade</span><span>Groq AI</span>
+                    </div>
+                    <div class="actions" style="margin: 20px 0 0;">
+                        <a class="btn primary small" href="https://github.com/albrt789/smart-ordering" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+                    </div>
                 </div>
             </article>
         </section>
@@ -146,7 +209,7 @@
                         <small>Universitas Gunadarma · Februari 2025</small>
                         <small>No. 251658</small>
                         <div class="tags"><span>SQL Server</span><span>T-SQL</span><span>Stored Procedure</span></div>
-                        <div class="view">Lihat sertifikat ↗ · <a href="assets/certs/basis_data_untuk_pemula.pdf" target="_blank">PDF</a></div>
+                        <div class="view">Lihat sertifikat ↗ · <a href="assets/certs/basis-data-pemula.jpg" target="_blank" rel="noopener noreferrer">Buka Tab Baru ↗</a></div>
                     </div>
                 </article>
 
@@ -157,7 +220,7 @@
                         <small>Universitas Gunadarma · Agustus 2024</small>
                         <small>No. 015440</small>
                         <div class="tags"><span>Go</span><span>PHP</span><span>ASP.NET</span><span>C#</span></div>
-                        <div class="view">Lihat sertifikat ↗ · <a href="assets/certs/Pemrograman_web_untuk_pemula.pdf" target="_blank">PDF</a></div>
+                        <div class="view">Lihat sertifikat ↗ · <a href="assets/certs/pemrograman-web-pemula.jpg" target="_blank" rel="noopener noreferrer">Buka Tab Baru ↗</a></div>
                     </div>
                 </article>
 
@@ -168,7 +231,7 @@
                         <small>Universitas Gunadarma · Februari 2024</small>
                         <small>No. 566284</small>
                         <div class="tags"><span>MySQL</span><span>PostgreSQL</span><span>SQL Server</span><span>PHP</span></div>
-                        <div class="view">Lihat sertifikat ↗ · <a href="assets/certs/dasar_basis_data_pemrograman_berbasis_web.pdf" target="_blank">PDF</a></div>
+                        <div class="view">Lihat sertifikat ↗ · <a href="assets/certs/dasar-basis-data-web.jpg" target="_blank" rel="noopener noreferrer">Buka Tab Baru ↗</a></div>
                     </div>
                 </article>
             </div>
@@ -177,7 +240,7 @@
         <!-- EXPERIENCE -->
         <section id="experience" class="section">
             <p class="eyebrow">JOURNEY</p>
-            <h2>Experience &amp Learning</h2>
+            <h2>Experience &amp; Learning</h2>
 
             <div class="timeline">
                 <div>
@@ -188,9 +251,9 @@
                 </div>
                 <div>
                     <b>Personal Projects</b>
-                    <h3>Building &amp Learning</h3>
-                    <p class="muted">Building practical applications such as FilmFinder while strengthening
-                        programming, web development, data processing, and problem-solving skills.</p>
+                    <h3>Building &amp; Learning</h3>
+                    <p class="muted">Building practical applications such as Film Finder, Fountain Hide, and SUAP Smart QR Ordering while strengthening
+                        full-stack development, database architecture, and problem-solving skills.</p>
                 </div>
                 <div>
                     <b>Continuous</b>
