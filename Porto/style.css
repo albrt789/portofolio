@@ -317,18 +317,18 @@ canvas.badge-canvas:active {
 /* GIANT BACKGROUND NAME */
 .hero-giant-name {
     position: absolute;
-    bottom: 3vw;
-    left: -2.3vw;
+    bottom: clamp(20px, 3.2vw, 48px);
+    left: var(--page-gutter);
     font-family: var(--font-serif);
-    font-size: 19.9vw;
+    font-size: clamp(48px, 10.5vw, 136px);
     font-weight: 400;
-    line-height: 1;
-    letter-spacing: -0.02em;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
     white-space: nowrap;
     pointer-events: none;
     z-index: 1;
     color: var(--text);
-    opacity: 0.95;
+    opacity: 0.92;
 }
 
 .hero-giant-name span {
@@ -918,9 +918,9 @@ canvas.badge-canvas:active {
     }
 
     .hero-giant-name {
-        font-size: 21vw;
-        bottom: 2vw;
-        left: -1.5vw;
+        font-size: clamp(34px, 10vw, 46px);
+        bottom: 24px;
+        left: var(--page-gutter);
     }
 
     .skills-row {
