@@ -166,12 +166,12 @@ import { createBadgeScene } from './assets/badge/badge-scene.js';
             },
             material: {
                 unlitArtwork: true,
-                wear: 0.2,
-                edgeDamage: 0.55,
-                roughness: 0.012,
+                wear: 0.0,
+                edgeDamage: 0.0,
+                roughness: 0.002,
                 transmission: 1,
                 thickness: 0.006,
-                metalRoughness: 0.2,
+                metalRoughness: 0.16,
                 strapColor: '#1c1e22'
             },
             lighting: {
