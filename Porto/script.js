@@ -388,17 +388,7 @@ import { createBadgeScene } from './assets/badge/badge-scene.js';
             () => config,
             onStateChange,
             'assets/badge/badge-artwork.png'
-        ).then(scene => {
-            // Subtle pendulum swing on page scroll
-            let lastScrollY = window.scrollY;
-            window.addEventListener('scroll', () => {
-                const dy = window.scrollY - lastScrollY;
-                lastScrollY = window.scrollY;
-                if (window.scrollY < window.innerHeight && Math.abs(dy) > 10 && scene?.nudge) {
-                    scene.nudge();
-                }
-            }, { passive: true });
-        }).catch(err => {
+        ).catch(err => {
             console.warn('3D Badge initialized with fallback:', err);
         });
     }
