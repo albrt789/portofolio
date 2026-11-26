@@ -378,4 +378,100 @@ import { createBadgeScene } from './assets/badge/badge-scene.js';
             row.classList.toggle('active');
         });
     });
+
+    // ==========================================================================
+    // 7. CERTIFICATES ARCHIVE & IN-PAGE LIGHTBOX (STUDIO SEVEN STYLE)
+    // ==========================================================================
+    const archiveRows = document.querySelectorAll('.archive-row');
+    const archiveList = document.getElementById('archive-list');
+    const previewImg = document.getElementById('archive-preview-img');
+    const previewDeck = document.querySelector('.preview-deck-stack');
+
+    const certLightbox = document.getElementById('cert-lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const lightboxMeta = document.getElementById('lightbox-meta');
+    const btnCloseLightbox = document.getElementById('btn-close-lightbox');
+    const lightboxBackdrop = document.getElementById('lightbox-backdrop');
+
+    if (archiveRows.length > 0) {
+        let currentImgSrc = archiveRows[0].dataset.img;
+
+        const setPreview = (row) => {
+            archiveRows.forEach(r => r.classList.remove('active'));
+            row.classList.add('active');
+
+            const newSrc = row.dataset.img;
+            if (newSrc && previewImg && newSrc !== currentImgSrc) {
+                currentImgSrc = newSrc;
+                previewImg.style.opacity = '0';
+                previewImg.style.transform = 'scale(0.96)';
+                setTimeout(() => {
+                    previewImg.src = newSrc;
+                    previewImg.style.opacity = '1';
+                    previewImg.style.transform = 'scale(1)';
+                }, 120);
+            }
+        };
+
+        const openLightbox = (row) => {
+            if (!certLightbox) return;
+            const imgSrc = row.dataset.img;
+            const title = row.dataset.title;
+            const meta = `${row.dataset.meta} · ${row.dataset.date}`;
+
+            if (lightboxImg) lightboxImg.src = imgSrc;
+            if (lightboxTitle) lightboxTitle.textContent = title;
+            if (lightboxMeta) lightboxMeta.textContent = meta;
+
+            certLightbox.setAttribute('open', '');
+            document.body.style.overflow = 'hidden';
+        };
+
+        const closeLightbox = () => {
+            if (!certLightbox) return;
+            certLightbox.removeAttribute('open');
+            document.body.style.overflow = '';
+        };
+
+        archiveRows.forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                if (archiveList) archiveList.classList.add('is-hovering');
+                setPreview(row);
+            });
+
+            row.addEventListener('click', () => {
+                openLightbox(row);
+            });
+
+            row.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openLightbox(row);
+                }
+            });
+        });
+
+        if (archiveList) {
+            archiveList.addEventListener('mouseleave', () => {
+                archiveList.classList.remove('is-hovering');
+            });
+        }
+
+        if (previewDeck) {
+            previewDeck.addEventListener('click', () => {
+                const activeRow = document.querySelector('.archive-row.active') || archiveRows[0];
+                openLightbox(activeRow);
+            });
+        }
+
+        if (btnCloseLightbox) btnCloseLightbox.addEventListener('click', closeLightbox);
+        if (lightboxBackdrop) lightboxBackdrop.addEventListener('click', closeLightbox);
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && certLightbox && certLightbox.hasAttribute('open')) {
+                closeLightbox();
+            }
+        });
+    }
 })();

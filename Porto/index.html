@@ -199,49 +199,118 @@
         </section>
 
         <!-- ==========================================================================
-             CERTIFICATES (EDITORIAL CREDENTIALS)
+             CERTIFICATES ARCHIVE (STUDIO SEVEN AGENCY ARCHIVE STYLE)
              ========================================================================== -->
-        <section id="certificates" class="certs-section">
-            <div class="section-label-strip">
-                <span class="tag-label">CREDENTIALS</span>
-                <span class="tag-counter">(GUNADARMA UNIVERSITY)</span>
+        <section id="certificates" class="certs-archive-section" aria-label="Certificates archive">
+            <div class="archive-header-strip">
+                <div class="archive-title-wrap">
+                    <span class="archive-section-tag">CREDENTIALS</span>
+                    <h2 class="archive-main-heading">Certificates <span class="archive-count">(03)</span></h2>
+                </div>
+                <div class="archive-meta-tag">
+                    <span>GUNADARMA UNIVERSITY · 2024 — 2025</span>
+                </div>
             </div>
 
-            <div class="certs-pinboard">
-                <article class="cert-item" data-cert="basis-data">
-                    <div class="cert-img-box">
-                        <img src="assets/certs/basis-data-pemula.jpg" alt="Basis Data Tingkat Pemula" loading="lazy">
+            <div class="archive-stage">
+                <!-- Center Floating Preview Deck (Studio Seven Hover Preview) -->
+                <div class="archive-preview-stage" aria-hidden="true">
+                    <div class="preview-deck-stack" title="Click to view full certificate">
+                        <div class="deck-layer deck-layer-2"></div>
+                        <div class="deck-layer deck-layer-1"></div>
+                        <div class="deck-layer deck-active-card">
+                            <img id="archive-preview-img" src="assets/certs/basis-data-pemula.jpg" alt="Certificate Preview">
+                            <div class="preview-glass-shimmer"></div>
+                            <div class="preview-click-hint">
+                                <span>Click to enlarge ↗</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="cert-caption">
-                        <h3>Basis Data untuk Tingkat Pemula</h3>
-                        <p>SQL Server · T-SQL · Stored Procedure · Feb 2025</p>
-                        <a href="assets/certs/basis-data-pemula.jpg" target="_blank" rel="noopener noreferrer" class="cert-view-btn">Lihat Sertifikat ↗</a>
-                    </div>
-                </article>
+                </div>
 
-                <article class="cert-item" data-cert="web-pemula">
-                    <div class="cert-img-box">
-                        <img src="assets/certs/pemrograman-web-pemula.jpg" alt="Pemrograman Web Tingkat Pemula" loading="lazy">
-                    </div>
-                    <div class="cert-caption">
-                        <h3>Pemrograman Web untuk Tingkat Pemula</h3>
-                        <p>Go · PHP · ASP.NET · C# · Agu 2024</p>
-                        <a href="assets/certs/pemrograman-web-pemula.jpg" target="_blank" rel="noopener noreferrer" class="cert-view-btn">Lihat Sertifikat ↗</a>
-                    </div>
-                </article>
+                <!-- Archive Interactive Item List -->
+                <ul class="archive-list" id="archive-list">
+                    <li class="archive-row active" 
+                        data-img="assets/certs/basis-data-pemula.jpg" 
+                        data-title="Basis Data untuk Tingkat Pemula" 
+                        data-meta="SQL Server · T-SQL · Stored Procedure" 
+                        data-date="Feb 2025"
+                        role="button" 
+                        tabindex="0"
+                        aria-label="Lihat sertifikat Basis Data untuk Tingkat Pemula">
+                        <span class="archive-row-num">01</span>
+                        <div class="archive-row-main">
+                            <h3 class="archive-row-title">Basis Data untuk Tingkat Pemula</h3>
+                            <span class="archive-view-pill">View Certificate ↗</span>
+                        </div>
+                        <div class="archive-row-meta">
+                            <span class="archive-tech">SQL Server · T-SQL · Stored Procedure</span>
+                            <span class="archive-date">Feb 2025</span>
+                        </div>
+                    </li>
 
-                <article class="cert-item" data-cert="dasar-web">
-                    <div class="cert-img-box">
-                        <img src="assets/certs/dasar-basis-data-web.jpg" alt="Dasar Basis Data Berbasis Web" loading="lazy">
-                    </div>
-                    <div class="cert-caption">
-                        <h3>Dasar Basis Data Berbasis Web</h3>
-                        <p>MySQL · PostgreSQL · SQL Server · PHP · Feb 2024</p>
-                        <a href="assets/certs/dasar-basis-data-web.jpg" target="_blank" rel="noopener noreferrer" class="cert-view-btn">Lihat Sertifikat ↗</a>
-                    </div>
-                </article>
+                    <li class="archive-row" 
+                        data-img="assets/certs/pemrograman-web-pemula.jpg" 
+                        data-title="Pemrograman Web untuk Tingkat Pemula" 
+                        data-meta="Go · PHP · ASP.NET · C#" 
+                        data-date="Agu 2024"
+                        role="button" 
+                        tabindex="0"
+                        aria-label="Lihat sertifikat Pemrograman Web untuk Tingkat Pemula">
+                        <span class="archive-row-num">02</span>
+                        <div class="archive-row-main">
+                            <h3 class="archive-row-title">Pemrograman Web untuk Tingkat Pemula</h3>
+                            <span class="archive-view-pill">View Certificate ↗</span>
+                        </div>
+                        <div class="archive-row-meta">
+                            <span class="archive-tech">Go · PHP · ASP.NET · C#</span>
+                            <span class="archive-date">Agu 2024</span>
+                        </div>
+                    </li>
+
+                    <li class="archive-row" 
+                        data-img="assets/certs/dasar-basis-data-web.jpg" 
+                        data-title="Dasar Basis Data Berbasis Web" 
+                        data-meta="MySQL · PostgreSQL · SQL Server · PHP" 
+                        data-date="Feb 2024"
+                        role="button" 
+                        tabindex="0"
+                        aria-label="Lihat sertifikat Dasar Basis Data Berbasis Web">
+                        <span class="archive-row-num">03</span>
+                        <div class="archive-row-main">
+                            <h3 class="archive-row-title">Dasar Basis Data Berbasis Web</h3>
+                            <span class="archive-view-pill">View Certificate ↗</span>
+                        </div>
+                        <div class="archive-row-meta">
+                            <span class="archive-tech">MySQL · PostgreSQL · SQL Server · PHP</span>
+                            <span class="archive-date">Feb 2024</span>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </section>
+
+        <!-- ==========================================================================
+             IN-PAGE CERTIFICATE LIGHTBOX MODAL (NO TAB SWITCHING)
+             ========================================================================== -->
+        <dialog id="cert-lightbox" class="cert-lightbox-dialog" aria-labelledby="lightbox-title">
+            <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+            <div class="lightbox-content">
+                <div class="lightbox-header">
+                    <div class="lightbox-info">
+                        <h3 id="lightbox-title" class="lightbox-title">Basis Data untuk Tingkat Pemula</h3>
+                        <p id="lightbox-meta" class="lightbox-meta">SQL Server · T-SQL · Stored Procedure · Feb 2025</p>
+                    </div>
+                    <button type="button" class="lightbox-close-btn" id="btn-close-lightbox" aria-label="Tutup sertifikat">×</button>
+                </div>
+                <div class="lightbox-body">
+                    <img id="lightbox-img" src="assets/certs/basis-data-pemula.jpg" alt="Sertifikat" class="lightbox-image">
+                </div>
+                <div class="lightbox-footer">
+                    <span class="lightbox-esc-hint">Press [Esc] or click anywhere outside to close</span>
+                </div>
+            </div>
+        </dialog>
 
         <!-- ==========================================================================
              FOOTER & CONTACT
