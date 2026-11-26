@@ -3,299 +3,519 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Albert Rafael Sinaga | Software Developer</title>
-    <meta name="description" content="Portofolio Albert Rafael Sinaga, mahasiswa Informatika Universitas Gunadarma yang membangun aplikasi web dengan Python dan Flask.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Albert Rafael Sinaga — Software Developer &amp; Informatics Student</title>
+    <meta name="description" content="Personal portfolio of Albert Rafael Sinaga, an Informatics student at Universitas Gunadarma building modern web applications, recommendation systems, and backend tools.">
     <meta name="author" content="Albert Rafael Sinaga">
-    <meta name="theme-color" content="#07101d">
+    <meta name="theme-color" content="#fbfbfa">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Albert Rafael Sinaga | Software Developer">
-    <meta property="og:description" content="Portofolio Albert Rafael Sinaga, mahasiswa Informatika Universitas Gunadarma yang membangun aplikasi web dengan Python dan Flask.">
+    <meta property="og:title" content="Albert Rafael Sinaga — Software Developer &amp; Informatics Student">
+    <meta property="og:description" content="Personal portfolio of Albert Rafael Sinaga, building modern web applications, recommendation systems, and backend tools.">
     <meta property="og:image" content="assets/foto.jpg">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Albert Rafael Sinaga | Software Developer">
-    <meta name="twitter:description" content="Portofolio Albert Rafael Sinaga, mahasiswa Informatika Universitas Gunadarma yang membangun aplikasi web dengan Python dan Flask.">
+    <meta name="twitter:title" content="Albert Rafael Sinaga — Software Developer &amp; Informatics Student">
+    <meta name="twitter:description" content="Personal portfolio of Albert Rafael Sinaga, building modern web applications, recommendation systems, and backend tools.">
     <meta name="twitter:image" content="assets/foto.jpg">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+    
+    <!-- Fonts: Syne (Display) + Plus Jakarta Sans (Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div id="loader"><span>AR</span></div>
-
-    <header>
-        <a class="logo" href="#home">AR</a>
-        <nav>
-            <a href="#home">Home</a><a href="#about">About</a><a href="#skills">Skills</a>
-            <a href="#projects">Projects</a><a href="#certificates">Certificates</a>
-            <a href="#experience">Experience</a><a href="#contact">Contact</a>
+    <!-- HEADER -->
+    <header class="site-header">
+        <a class="brand" href="#home">
+            <span class="brand-badge">AR</span>
+            <span class="brand-name">Albert Rafael Sinaga</span>
+        </a>
+        <nav class="nav-links">
+            <a href="#projects">Work</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#certificates">Certificates</a>
+            <a href="#contact">Contact</a>
         </nav>
-        <button id="theme">☾</button><button id="menu">☰</button>
+        <div class="header-actions">
+            <a href="assets/cv.pdf" class="btn-cv" download>Resume ↓</a>
+            <button id="theme" class="theme-toggle" aria-label="Toggle dark/light theme">☾</button>
+            <button id="menu" class="mobile-toggle" aria-label="Toggle navigation menu">☰</button>
+        </div>
     </header>
 
     <main>
-        <!-- HERO -->
-        <section id="home" class="hero">
-            <div>
-                <p class="eyebrow">HELLO, I'M</p>
-                <h1><span>Albert Rafael Sinaga</span></h1>
-                <h2>Informatics Student <i>|</i> <span id="typed" class="typed"></span></h2>
-                <p class="lead">I'm an Informatics student who enjoys building web applications, exploring new
-                    technologies, and turning ideas into practical software projects.</p>
-                <div class="actions">
-                    <a class="btn primary" href="#projects">View Projects</a>
-                    <a class="btn" href="assets/cv.pdf" download>↓ Download CV</a>
-                </div>
-                <div class="social">
-                    <a href="https://github.com/albrt789" target="_blank">GH</a>
-                    <a href="https://www.linkedin.com/in/albert-rafael-sinaga-6527b7440" target="_blank">in</a>
-                    <a href="mailto:albertrafaelsinaga@gmail.com">✉</a>
-                </div>
-            </div>
-            <div class="art">
-                <div class="glow"></div>
-                <div class="code c1">def build_project():<br>&nbsp;&nbsp;return "learn + build"</div>
-                <div class="code c2">Python · Flask · Git</div>
-                <div class="photo">
-                    <img src="assets/foto.jpg" alt="Foto Albert Rafael Sinaga">
-                </div>
-            </div>
-        </section>
+        <!-- HERO SECTION WITH INTERACTIVE LANYARD -->
+        <section id="home" class="hero-section">
+            <div class="hero-grid">
+                <!-- HERO TEXT COLUMN -->
+                <div class="hero-content">
+                    <div class="status-pill">
+                        <span class="pulse-dot"></span>
+                        <span>Available for opportunities &amp; internships</span>
+                    </div>
 
-        <!-- STATISTIK -->
-        <section class="section stats">
-            <div><b data-count="3">0</b><small>Certificates</small></div>
-            <div><b data-count="3">0</b><small>Featured Projects</small></div>
-            <div><b data-count="12">0</b><small>Technologies</small></div>
-            <div><b data-count="3" data-suffix="+">0</b><small>Years Learning</small></div>
-        </section>
+                    <h1 class="hero-title">
+                        Building products that merge utility &amp; clean code.
+                    </h1>
 
-        <!-- ABOUT -->
-        <section id="about" class="section split">
-            <div>
-                <p class="eyebrow">ABOUT</p>
-                <h2>About Me</h2>
-                <p class="muted">Informatics student interested in software development and web technologies.</p>
-            </div>
-            <div class="card">
-                <p>I am an Informatics student interested in software development and web technologies. I enjoy
-                    building practical projects, learning new technologies, and improving my problem-solving skills
-                    through hands-on development.</p>
-                <div class="facts">
-                    <div>🎓 <b>Education</b><small>Informatics · Universitas Gunadarma</small></div>
-                    <div>💻 <b>Focus</b><small>Software Development &amp; Web</small></div>
-                    <div>📍 <b>Location</b><small>Indonesia</small></div>
-                    <div>✉ <b>Email</b><small>albertrafaelsinaga@gmail.com</small></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SKILLS -->
-        <section id="skills" class="section">
-            <p class="eyebrow">TECHNOLOGIES</p>
-            <h2>Skills</h2>
-            <p class="muted">Technologies and tools I use for learning and building projects.</p>
-            <div class="skills">
-                <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="" loading="lazy"><small>Python</small></div>
-                <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="" loading="lazy"><small>Java</small></div>
-                <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="" loading="lazy"><small>C++</small></div>
-                <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="" loading="lazy"><small>HTML5</small></div>
-                <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="" loading="lazy"><small>CSS3</small></div>
-                <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="" loading="lazy"><small>JavaScript</small></div>
-                <div><img class="inv" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" alt="" loading="lazy"><small>Flask</small></div>
-                <div><img class="inv" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="" loading="lazy"><small>Pandas</small></div>
-                <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="" loading="lazy"><small>MySQL</small></div>
-                <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="" loading="lazy"><small>PostgreSQL</small></div>
-                <div><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="" loading="lazy"><small>Git</small></div>
-                <div><img class="inv" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="" loading="lazy"><small>GitHub</small></div>
-            </div>
-        </section>
-
-        <!-- PROJECTS -->
-        <section id="projects" class="section">
-            <p class="eyebrow">SELECTED WORK</p>
-            <h2>Featured Projects</h2>
-            <p class="muted">Projects built while learning and developing practical applications.</p>
-
-            <article class="project">
-                <div class="preview shot">
-                    <div class="bar"><i></i><i></i><i></i></div>
-                    <img src="assets/filmfinder.jpg" alt="Tampilan website Film Finder" loading="lazy">
-                </div>
-                <div class="info">
-                    <b class="badge">FEATURED</b>
-                    <h3>Film Finder</h3>
-                    <p class="sub">Content-Based Movie Recommendation System</p>
-                    <p class="muted">
-                        A web-based movie recommendation system that suggests films based on shared genres and plot
-                        summaries. It uses TF-IDF and cosine similarity, with ratings to help rank recommendations.
+                    <p class="hero-lead">
+                        Hello, I'm <strong>Albert Rafael Sinaga</strong> — an Informatics student at Universitas Gunadarma. 
+                        I design and engineer web applications, machine learning recommendation systems, and full-stack backend solutions.
                     </p>
-                    <div class="tags">
-                        <span>Python</span><span>Flask</span><span>Pandas</span><span>TMDB API</span><span>Vercel</span>
-                    </div>
-                    <div class="actions" style="margin: 20px 0 0; gap: 10px;">
-                        <a class="btn primary small" href="https://film-finder-navy.vercel.app/" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
-                        <a class="btn small" href="https://github.com/albrt789/film-finder" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-                    </div>
-                </div>
-            </article>
 
-            <article class="project">
-                <div class="preview shot">
-                    <div class="bar"><i></i><i></i><i></i></div>
-                    <img src="assets/fountain.jpg" alt="Tampilan website Fountain Hide" loading="lazy">
-                </div>
-                <div class="info">
-                    <b class="badge">FEATURED</b>
-                    <h3>Fountain Hide</h3>
-                    <p class="sub">Coffee Shop Company Profile &amp; Landing Page</p>
-                    <p class="muted">
-                        A modern and responsive company profile website for Fountain Hide coffee shop in Depok.
-                        Features interactive menu showcases, customer feedback note form, table reservation,
-                        photo gallery lightbox, and smooth micro-interactions.
-                    </p>
-                    <div class="tags">
-                        <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Vercel</span>
+                    <div class="hero-meta-grid">
+                        <div class="meta-item">
+                            <span class="meta-label">Focus</span>
+                            <span class="meta-val">Full-Stack &amp; Web Systems</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Education</span>
+                            <span class="meta-val">Informatics · Gunadarma</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Core Tech</span>
+                            <span class="meta-val">Python, Laravel, Flask, JS, MySQL</span>
+                        </div>
                     </div>
-                    <div class="actions" style="margin: 20px 0 0; gap: 10px;">
-                        <a class="btn primary small" href="https://fountain-olive.vercel.app/" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
-                        <a class="btn small" href="https://github.com/albrt789/company-profile-fountain" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-                    </div>
-                </div>
-            </article>
 
-            <article class="project">
-                <div class="preview shot">
-                    <div class="bar"><i></i><i></i><i></i></div>
-                    <img src="assets/smart-ordering.jpg" alt="Tampilan website SUAP Smart Ordering" loading="lazy">
+                    <div class="hero-cta">
+                        <a class="btn btn-primary" href="#projects">Explore Work ↓</a>
+                        <a class="btn btn-outline" href="assets/cv.pdf" download>Download CV ↓</a>
+                        <div class="hero-social-links">
+                            <a href="https://github.com/albrt789" target="_blank" rel="noopener noreferrer" class="social-chip">GitHub ↗</a>
+                            <a href="https://www.linkedin.com/in/albert-rafael-sinaga-6527b7440" target="_blank" rel="noopener noreferrer" class="social-chip">LinkedIn ↗</a>
+                            <a href="mailto:albertrafaelsinaga@gmail.com" class="social-chip">Email ↗</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="info">
-                    <b class="badge">FULL-STACK</b>
-                    <h3>SUAP. — Smart QR Ordering</h3>
-                    <p class="sub">Dine-In QR Ordering System &amp; Kitchen Display</p>
-                    <p class="muted">
-                        A comprehensive restaurant smart ordering system built with Laravel, Blade, and MySQL.
-                        Features table-based QR menu ordering, Kitchen Display System (KDS), tent card generator,
-                        and an integrated AI assistant (Groq API) for ingredient and allergen consultation.
+
+                <!-- HERO INTERACTIVE LANYARD BADGE COLUMN -->
+                <div class="hero-lanyard-stage" id="lanyard-stage">
+                    <canvas id="lanyard-canvas"></canvas>
+                    
+                    <div id="lanyard-badge" class="badge-wrapper" role="button" tabindex="0" aria-label="Interactive ID Badge — Drag to swing">
+                        <!-- Top Hardware Clip -->
+                        <div class="badge-hardware">
+                            <div class="clip-ring"></div>
+                            <div class="clip-carabiner"></div>
+                        </div>
+
+                        <!-- Badge Body -->
+                        <div class="badge-card">
+                            <div class="badge-strip">
+                                <span class="badge-org">UG / INFORMATICS</span>
+                                <span class="badge-year">2026</span>
+                            </div>
+
+                            <div class="badge-avatar-box">
+                                <img src="assets/foto.jpg" alt="Foto Albert Rafael Sinaga" class="badge-avatar-img" draggable="false">
+                                <div class="badge-verified">✓</div>
+                            </div>
+
+                            <div class="badge-details">
+                                <div class="badge-holder-name">Albert Rafael S.</div>
+                                <div class="badge-holder-role">Software Developer</div>
+                                <div class="badge-id-num">ID • 2026-AR-DEV</div>
+                            </div>
+
+                            <div class="badge-footer">
+                                <div class="barcode">
+                                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                                </div>
+                                <span class="badge-chip-icon"></span>
+                            </div>
+                        </div>
+
+                        <div class="lanyard-hint">
+                            <span>✦ grab &amp; swing me</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS STRIP -->
+        <section class="stats-strip">
+            <div class="stat-box">
+                <span class="stat-number" data-count="3">0</span>
+                <span class="stat-desc">Featured Projects</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number" data-count="12" data-suffix="+">0</span>
+                <span class="stat-desc">Technologies</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number" data-count="3">0</span>
+                <span class="stat-desc">Certificates</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number" data-count="3" data-suffix="+">0</span>
+                <span class="stat-desc">Years Learning</span>
+            </div>
+        </section>
+
+        <!-- FEATURED PROJECTS -->
+        <section id="projects" class="section-container">
+            <div class="section-header">
+                <span class="section-tag">SELECTED WORK</span>
+                <h2 class="section-heading">Featured Projects</h2>
+                <p class="section-sub">A curated selection of applications built with end-to-end functionality, real-world utility, and clean code.</p>
+            </div>
+
+            <div class="projects-list">
+                <!-- PROJECT 1: FILM FINDER -->
+                <article class="project-card">
+                    <div class="project-media">
+                        <div class="window-bar">
+                            <span class="bar-title">film-finder-navy.vercel.app</span>
+                        </div>
+                        <img src="assets/filmfinder.jpg" alt="Tampilan website Film Finder" loading="lazy">
+                    </div>
+                    <div class="project-body">
+                        <div class="project-top">
+                            <span class="project-badge">Machine Learning &amp; Web</span>
+                            <span class="project-year">2026</span>
+                        </div>
+                        <h3 class="project-title">Film Finder</h3>
+                        <p class="project-subtitle">Content-Based Movie Recommendation Engine</p>
+                        <p class="project-desc">
+                            A movie discovery web application that recommends films based on shared genres, plot summaries, and semantic similarity. 
+                            Built with TF-IDF vectorization, cosine similarity ranking, TMDB API data integration, and deployed live on Vercel.
+                        </p>
+                        <div class="tech-pills">
+                            <span>Python</span><span>Flask</span><span>Pandas</span><span>TMDB API</span><span>Vercel</span>
+                        </div>
+                        <div class="project-actions">
+                            <a class="btn btn-primary btn-sm" href="https://film-finder-navy.vercel.app/" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+                            <a class="btn btn-outline btn-sm" href="https://github.com/albrt789/film-finder" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- PROJECT 2: FOUNTAIN HIDE -->
+                <article class="project-card">
+                    <div class="project-media">
+                        <div class="window-bar">
+                            <span class="bar-title">fountain-olive.vercel.app</span>
+                        </div>
+                        <img src="assets/fountain.jpg" alt="Tampilan website Fountain Hide" loading="lazy">
+                    </div>
+                    <div class="project-body">
+                        <div class="project-top">
+                            <span class="project-badge">Company Profile &amp; Interactive UI</span>
+                            <span class="project-year">2026</span>
+                        </div>
+                        <h3 class="project-title">Fountain Hide</h3>
+                        <p class="project-subtitle">Coffee Shop Landing Page &amp; Reservation System</p>
+                        <p class="project-desc">
+                            A warm, responsive company profile website crafted for Fountain Hide coffee shop in Depok. 
+                            Features category-filtered menus, customer guestbook note submissions, table reservation flows, and photo gallery lightbox modals.
+                        </p>
+                        <div class="tech-pills">
+                            <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Vercel</span>
+                        </div>
+                        <div class="project-actions">
+                            <a class="btn btn-primary btn-sm" href="https://fountain-olive.vercel.app/" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+                            <a class="btn btn-outline btn-sm" href="https://github.com/albrt789/company-profile-fountain" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- PROJECT 3: SUAP. SMART ORDERING -->
+                <article class="project-card">
+                    <div class="project-media">
+                        <div class="window-bar">
+                            <span class="bar-title">github.com/albrt789/smart-ordering</span>
+                        </div>
+                        <img src="assets/smart-ordering.jpg" alt="Tampilan website SUAP Smart Ordering" loading="lazy">
+                    </div>
+                    <div class="project-body">
+                        <div class="project-top">
+                            <span class="project-badge">Full-Stack Laravel &amp; MySQL</span>
+                            <span class="project-year">2026</span>
+                        </div>
+                        <h3 class="project-title">SUAP. — Smart QR Ordering</h3>
+                        <p class="project-subtitle">Dine-In QR Ordering System &amp; Kitchen Display</p>
+                        <p class="project-desc">
+                            A comprehensive restaurant ordering platform built with Laravel, Blade, and MySQL. 
+                            Enables table-specific QR ordering, real-time Kitchen Display System (KDS), table tent card generation, 
+                            and an integrated AI assistant (Groq API) for allergen &amp; dish inquiries.
+                        </p>
+                        <div class="tech-pills">
+                            <span>PHP 8.3</span><span>Laravel</span><span>MySQL</span><span>Blade</span><span>Groq AI</span>
+                        </div>
+                        <div class="project-actions">
+                            <a class="btn btn-primary btn-sm" href="https://github.com/albrt789/smart-ordering" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- SKILLS / TECH STACK -->
+        <section id="skills" class="section-container">
+            <div class="section-header">
+                <span class="section-tag">TOOLBOX</span>
+                <h2 class="section-heading">Skills &amp; Technologies</h2>
+                <p class="section-sub">The languages, frameworks, and tools I use to design, build, and deploy software.</p>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <div class="category-header">
+                        <span class="category-icon">⌨</span>
+                        <h3>Languages</h3>
+                    </div>
+                    <div class="category-items">
+                        <div class="skill-tag"><span>Python</span></div>
+                        <div class="skill-tag"><span>PHP</span></div>
+                        <div class="skill-tag"><span>JavaScript</span></div>
+                        <div class="skill-tag"><span>Java</span></div>
+                        <div class="skill-tag"><span>C++</span></div>
+                        <div class="skill-tag"><span>SQL</span></div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="category-header">
+                        <span class="category-icon">⚙</span>
+                        <h3>Frameworks &amp; Backend</h3>
+                    </div>
+                    <div class="category-items">
+                        <div class="skill-tag"><span>Laravel</span></div>
+                        <div class="skill-tag"><span>Flask</span></div>
+                        <div class="skill-tag"><span>Blade</span></div>
+                        <div class="skill-tag"><span>Pandas</span></div>
+                        <div class="skill-tag"><span>HTML5 / CSS3</span></div>
+                        <div class="skill-tag"><span>REST APIs</span></div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="category-header">
+                        <span class="category-icon">🗄</span>
+                        <h3>Databases &amp; Dev Tools</h3>
+                    </div>
+                    <div class="category-items">
+                        <div class="skill-tag"><span>MySQL</span></div>
+                        <div class="skill-tag"><span>PostgreSQL</span></div>
+                        <div class="skill-tag"><span>SQL Server</span></div>
+                        <div class="skill-tag"><span>Git &amp; GitHub</span></div>
+                        <div class="skill-tag"><span>Laragon</span></div>
+                        <div class="skill-tag"><span>Vercel</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT / BACKGROUND -->
+        <section id="about" class="section-container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <span class="section-tag">ABOUT</span>
+                    <h2 class="section-heading">A builder at heart with a drive to learn.</h2>
+                    <p class="about-lead">
+                        I am an Informatics student at Universitas Gunadarma with a deep curiosity for how software shapes human experiences. 
+                        Whether it is building recommendation engines that connect people to movies or designing ordering systems that streamline restaurant operations, I love turning complex ideas into functional products.
                     </p>
-                    <div class="tags">
-                        <span>PHP</span><span>Laravel</span><span>MySQL</span><span>Blade</span><span>Groq AI</span>
-                    </div>
-                    <div class="actions" style="margin: 20px 0 0;">
-                        <a class="btn primary small" href="https://github.com/albrt789/smart-ordering" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+                    <p class="about-text">
+                        Outside of coursework, I spend my time building practical personal projects, exploring machine learning models, experimenting with modern frontends, and refining clean backend code.
+                    </p>
+
+                    <div class="about-facts">
+                        <div class="fact-card">
+                            <span class="fact-title">🎓 Education</span>
+                            <span class="fact-desc">Informatics · Universitas Gunadarma</span>
+                        </div>
+                        <div class="fact-card">
+                            <span class="fact-title">📍 Location</span>
+                            <span class="fact-desc">Indonesia · Remote ready</span>
+                        </div>
+                        <div class="fact-card">
+                            <span class="fact-title">🎯 Current Interests</span>
+                            <span class="fact-desc">Full-Stack Web &amp; Applied AI</span>
+                        </div>
+                        <div class="fact-card">
+                            <span class="fact-title">✉ Direct Contact</span>
+                            <span class="fact-desc">albertrafaelsinaga@gmail.com</span>
+                        </div>
                     </div>
                 </div>
-            </article>
+
+                <!-- EXPERIENCE TIMELINE -->
+                <div id="experience" class="about-timeline">
+                    <h3 class="timeline-title">Journey &amp; Milestones</h3>
+                    <div class="timeline-items">
+                        <div class="timeline-item">
+                            <span class="timeline-date">2023 — Present</span>
+                            <h4 class="timeline-role">Informatics Undergraduate</h4>
+                            <p class="timeline-org">Universitas Gunadarma</p>
+                            <p class="timeline-desc">Studying algorithms, data structures, relational databases, software engineering principles, and web architectures.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-date">2024 — Present</span>
+                            <h4 class="timeline-role">Full-Stack &amp; ML Projects</h4>
+                            <p class="timeline-org">Independent Development</p>
+                            <p class="timeline-desc">Engineered Film Finder (TF-IDF Movie Recommender), Fountain Hide (Coffee Shop System), and SUAP (Laravel QR Ordering + KDS).</p>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-date">Continuous</span>
+                            <h4 class="timeline-role">Continuous Learning &amp; Upskilling</h4>
+                            <p class="timeline-org">Certifications &amp; Courses</p>
+                            <p class="timeline-desc">Completed certified university courses in Web Programming and Database Systems (SQL Server, T-SQL, Stored Procedures, PHP).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- CERTIFICATES -->
-        <section id="certificates" class="section">
-            <p class="eyebrow">ACHIEVEMENTS</p>
-            <h2>Certificates</h2>
-            <p class="muted">Pelatihan yang saya ikuti di Universitas Gunadarma. Klik kartu untuk memperbesar.</p>
-
-            <div class="certs">
-                <article class="cert">
-                    <div class="thumb"><img src="assets/certs/basis-data-pemula.jpg" alt="Sertifikat Basis Data untuk Tingkat Pemula" loading="lazy"></div>
-                    <div class="meta">
-                        <h3>Basis Data untuk Tingkat Pemula</h3>
-                        <small>Universitas Gunadarma · Februari 2025</small>
-                        <small>No. 251658</small>
-                        <div class="tags"><span>SQL Server</span><span>T-SQL</span><span>Stored Procedure</span></div>
-                        <div class="view">Lihat sertifikat ↗ · <a href="assets/certs/basis-data-pemula.jpg" target="_blank" rel="noopener noreferrer">Buka Tab Baru ↗</a></div>
-                    </div>
-                </article>
-
-                <article class="cert">
-                    <div class="thumb"><img src="assets/certs/pemrograman-web-pemula.jpg" alt="Sertifikat Pemrograman Web untuk Tingkat Pemula" loading="lazy"></div>
-                    <div class="meta">
-                        <h3>Pemrograman Web untuk Tingkat Pemula</h3>
-                        <small>Universitas Gunadarma · Agustus 2024</small>
-                        <small>No. 015440</small>
-                        <div class="tags"><span>Go</span><span>PHP</span><span>ASP.NET</span><span>C#</span></div>
-                        <div class="view">Lihat sertifikat ↗ · <a href="assets/certs/pemrograman-web-pemula.jpg" target="_blank" rel="noopener noreferrer">Buka Tab Baru ↗</a></div>
-                    </div>
-                </article>
-
-                <article class="cert">
-                    <div class="thumb"><img src="assets/certs/dasar-basis-data-web.jpg" alt="Sertifikat Dasar Basis Data Pemrograman Berbasis Web" loading="lazy"></div>
-                    <div class="meta">
-                        <h3>Dasar Basis Data Pemrograman Berbasis Web</h3>
-                        <small>Universitas Gunadarma · Februari 2024</small>
-                        <small>No. 566284</small>
-                        <div class="tags"><span>MySQL</span><span>PostgreSQL</span><span>SQL Server</span><span>PHP</span></div>
-                        <div class="view">Lihat sertifikat ↗ · <a href="assets/certs/dasar-basis-data-web.jpg" target="_blank" rel="noopener noreferrer">Buka Tab Baru ↗</a></div>
-                    </div>
-                </article>
+        <section id="certificates" class="section-container">
+            <div class="section-header">
+                <span class="section-tag">CREDENTIALS</span>
+                <h2 class="section-heading">Certificates</h2>
+                <p class="section-sub">Verified certifications and professional workshops completed at Universitas Gunadarma.</p>
             </div>
-        </section>
 
-        <!-- EXPERIENCE -->
-        <section id="experience" class="section">
-            <p class="eyebrow">JOURNEY</p>
-            <h2>Experience &amp; Learning</h2>
+            <div class="certs-grid">
+                <article class="cert-card">
+                    <div class="cert-thumb">
+                        <img src="assets/certs/basis-data-pemula.jpg" alt="Sertifikat Basis Data untuk Tingkat Pemula" loading="lazy">
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-date">Februari 2025 · No. 251658</span>
+                        <h3 class="cert-title">Basis Data untuk Tingkat Pemula</h3>
+                        <p class="cert-issuer">Universitas Gunadarma</p>
+                        <div class="cert-tags">
+                            <span>SQL Server</span><span>T-SQL</span><span>Stored Procedure</span>
+                        </div>
+                        <div class="cert-actions">
+                            <span class="cert-view-hint">🔍 Klik gambar untuk zoom</span>
+                            <a href="assets/certs/basis-data-pemula.jpg" target="_blank" rel="noopener noreferrer" class="cert-link">Buka Tab Baru ↗</a>
+                        </div>
+                    </div>
+                </article>
 
-            <div class="timeline">
-                <div>
-                    <b>2023 — Present</b>
-                    <h3>Informatics Student</h3>
-                    <p class="muted">Studying Informatics at Universitas Gunadarma with a focus on programming,
-                        databases, software development, and web technologies.</p>
-                </div>
-                <div>
-                    <b>Personal Projects</b>
-                    <h3>Building &amp; Learning</h3>
-                    <p class="muted">Building practical applications such as Film Finder, Fountain Hide, and SUAP Smart QR Ordering while strengthening
-                        full-stack development, database architecture, and problem-solving skills.</p>
-                </div>
-                <div>
-                    <b>Continuous</b>
-                    <h3>Self Development</h3>
-                    <p class="muted">Learning new technologies through hands-on projects, documentation,
-                        experimentation, and continuous improvement.</p>
-                </div>
+                <article class="cert-card">
+                    <div class="cert-thumb">
+                        <img src="assets/certs/pemrograman-web-pemula.jpg" alt="Sertifikat Pemrograman Web untuk Tingkat Pemula" loading="lazy">
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-date">Agustus 2024 · No. 015440</span>
+                        <h3 class="cert-title">Pemrograman Web untuk Tingkat Pemula</h3>
+                        <p class="cert-issuer">Universitas Gunadarma</p>
+                        <div class="cert-tags">
+                            <span>Go</span><span>PHP</span><span>ASP.NET</span><span>C#</span>
+                        </div>
+                        <div class="cert-actions">
+                            <span class="cert-view-hint">🔍 Klik gambar untuk zoom</span>
+                            <a href="assets/certs/pemrograman-web-pemula.jpg" target="_blank" rel="noopener noreferrer" class="cert-link">Buka Tab Baru ↗</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="cert-card">
+                    <div class="cert-thumb">
+                        <img src="assets/certs/dasar-basis-data-web.jpg" alt="Sertifikat Dasar Basis Data Pemrograman Berbasis Web" loading="lazy">
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-date">Februari 2024 · No. 566284</span>
+                        <h3 class="cert-title">Dasar Basis Data Pemrograman Berbasis Web</h3>
+                        <p class="cert-issuer">Universitas Gunadarma</p>
+                        <div class="cert-tags">
+                            <span>MySQL</span><span>PostgreSQL</span><span>SQL Server</span><span>PHP</span>
+                        </div>
+                        <div class="cert-actions">
+                            <span class="cert-view-hint">🔍 Klik gambar untuk zoom</span>
+                            <a href="assets/certs/dasar-basis-data-web.jpg" target="_blank" rel="noopener noreferrer" class="cert-link">Buka Tab Baru ↗</a>
+                        </div>
+                    </div>
+                </article>
             </div>
         </section>
 
         <!-- CONTACT -->
-        <section id="contact" class="section contact">
-            <div>
-                <p class="eyebrow">CONTACT</p>
-                <h2>Let's Get In Touch</h2>
-                <p class="muted">Have a project, internship opportunity, or just want to connect?</p>
-            </div>
+        <section id="contact" class="section-container contact-section">
+            <div class="contact-card">
+                <div class="contact-intro">
+                    <span class="section-tag">LET'S CONNECT</span>
+                    <h2 class="contact-title">Have a project, role, or idea in mind?</h2>
+                    <p class="contact-desc">
+                        I am always open to discussing new opportunities, software projects, internships, or simply exchanging ideas. Feel free to reach out via email or send a message directly.
+                    </p>
 
-            <div class="contactgrid">
-                <div class="contactinfo">
-                    <a href="mailto:albertrafaelsinaga@gmail.com">✉
-                        <span>Email<br><small>albertrafaelsinaga@gmail.com</small></span>
-                    </a>
-                    <a href="https://github.com/albrt789" target="_blank">GH
-                        <span>GitHub<br><small>github.com/albrt789</small></span>
-                    </a>
-                    <a href="https://www.linkedin.com/in/albert-rafael-sinaga-6527b7440" target="_blank">in
-                        <span>LinkedIn<br><small>linkedin.com/in/albert-rafael-sinaga-6527b7440</small></span>
-                    </a>
+                    <div class="direct-channels">
+                        <a href="mailto:albertrafaelsinaga@gmail.com" class="channel-link">
+                            <span class="channel-icon">✉</span>
+                            <div>
+                                <span class="channel-label">Email</span>
+                                <span class="channel-val">albertrafaelsinaga@gmail.com</span>
+                            </div>
+                        </a>
+                        <a href="https://github.com/albrt789" target="_blank" rel="noopener noreferrer" class="channel-link">
+                            <span class="channel-icon">GH</span>
+                            <div>
+                                <span class="channel-label">GitHub</span>
+                                <span class="channel-val">github.com/albrt789</span>
+                            </div>
+                        </a>
+                        <a href="https://www.linkedin.com/in/albert-rafael-sinaga-6527b7440" target="_blank" rel="noopener noreferrer" class="channel-link">
+                            <span class="channel-icon">in</span>
+                            <div>
+                                <span class="channel-label">LinkedIn</span>
+                                <span class="channel-val">linkedin.com/in/albert-rafael-sinaga</span>
+                            </div>
+                        </a>
+                    </div>
                 </div>
 
-                <form id="form" action="https://formspree.io/f/mbglnbpv" method="POST">
-                    <input required name="name" placeholder="Name">
-                    <input required type="email" name="email" placeholder="Email">
-                    <textarea required name="message" placeholder="Message"></textarea>
-                    <button class="btn primary">Send Message ↗</button>
-                </form>
+                <div class="contact-form-wrapper">
+                    <form id="form" action="https://formspree.io/f/mbglnbpv" method="POST" class="modern-form">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input id="name" required name="name" placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input id="email" required type="email" name="email" placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" required name="message" rows="4" placeholder="Hi Albert, let's talk about..."></textarea>
+                        </div>
+                        <button class="btn btn-primary btn-submit" type="submit">
+                            <span>Send Message</span>
+                            <span class="btn-arrow">↗</span>
+                        </button>
+                    </form>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer>© <span id="year"></span> Albert Rafael Sinaga · Built with HTML, CSS &amp; JavaScript</footer>
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-left">
+                <span class="footer-brand">Albert Rafael Sinaga</span>
+                <span class="footer-dot">•</span>
+                <span class="footer-year">© <span id="year">2026</span></span>
+            </div>
+            <div class="footer-right">
+                <span class="footer-note">Designed &amp; built with craftsmanship · No AI templates</span>
+            </div>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
