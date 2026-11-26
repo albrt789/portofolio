@@ -1312,7 +1312,7 @@ body.dark .deck-active-card {
 }
 
 /* ==========================================================================
-   MINIMALIST 3-IN-1 TO 'HI' MORPH LOADING SCREEN (RECENT DESIGN)
+   MINIMALIST ALPHABET TO 'HI' MORPH LOADING SCREEN
    ========================================================================== */
 .sound-loader {
     position: fixed;
@@ -1349,50 +1349,120 @@ body.dark .sound-loader {
 
 .morph-loader-box {
     position: relative;
-    width: 280px;
-    height: 280px;
+    width: 420px;
+    height: 420px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.morph-svg {
+.letters-container {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    overflow: visible;
+    inset: 0;
     pointer-events: none;
 }
 
-#svg-icons {
-    width: 220px;
-    height: 90px;
+.abjad-char {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-family: var(--font-sans);
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1;
+    color: currentColor;
+    user-select: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.65s cubic-bezier(0.34, 1.25, 0.64, 1), opacity 0.45s ease, background-color 0.4s ease, border-radius 0.4s ease, width 0.4s ease, height 0.4s ease, color 0.3s ease;
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    will-change: transform, opacity;
+}
+
+/* Subtle organic floating animation */
+@keyframes float-a { 0% { margin-top: 0px; } 50% { margin-top: -6px; } 100% { margin-top: 4px; } }
+@keyframes float-b { 0% { margin-top: 0px; } 50% { margin-top: 6px; } 100% { margin-top: -4px; } }
+@keyframes float-c { 0% { margin-left: 0px; } 50% { margin-left: 5px; } 100% { margin-left: -5px; } }
+
+.morph-loader-box.initial .c1 { transform: translate(-140px, -80px) rotate(-14deg); animation: float-a 3s ease-in-out infinite; font-size: 38px; }
+.morph-loader-box.initial .c2 { transform: translate(130px, -95px) rotate(16deg); animation: float-b 2.7s ease-in-out infinite; font-size: 34px; }
+.morph-loader-box.initial .c3 { transform: translate(-145px, 45px) rotate(-8deg); animation: float-c 3.2s ease-in-out infinite; font-size: 36px; }
+.morph-loader-box.initial .c4 { transform: translate(140px, 50px) rotate(12deg); animation: float-a 2.5s ease-in-out infinite; font-size: 38px; }
+.morph-loader-box.initial .c5 { transform: translate(-75px, 125px) rotate(15deg); animation: float-b 3.4s ease-in-out infinite; font-size: 32px; }
+.morph-loader-box.initial .c6 { transform: translate(75px, 120px) rotate(-12deg); animation: float-c 2.8s ease-in-out infinite; font-size: 36px; }
+.morph-loader-box.initial .c7 { transform: translate(-30px, -135px) rotate(6deg); animation: float-a 3.1s ease-in-out infinite; font-size: 42px; }
+.morph-loader-box.initial .c8 { transform: translate(65px, -50px) rotate(-6deg); animation: float-b 2.9s ease-in-out infinite; font-size: 30px; }
+.morph-loader-box.initial .c9 { transform: translate(-85px, -30px) rotate(10deg); animation: float-c 3.5s ease-in-out infinite; font-size: 32px; }
+.morph-loader-box.initial .c10 { transform: translate(80px, 10px) rotate(-14deg); animation: float-a 3s ease-in-out infinite; font-size: 34px; }
+
+/* STAGE 2: Merging into the two glyphs */
+.morph-loader-box.merging .abjad-char {
+    animation: none;
+}
+/* Converge into 'h' */
+.morph-loader-box.merging .c1 { transform: translate(-42px, -38px) scale(0.65) rotate(0deg); opacity: 0.7; }
+.morph-loader-box.merging .c3 { transform: translate(-48px, 18px) scale(0.6) rotate(0deg); opacity: 0.6; }
+.morph-loader-box.merging .c5 { transform: translate(-26px, 35px) scale(0.6) rotate(0deg); opacity: 0.5; }
+.morph-loader-box.merging .c7 { transform: translate(-42px, -62px) scale(0.65) rotate(0deg); opacity: 0.7; }
+.morph-loader-box.merging .c9 { transform: translate(-22px, -15px) scale(0.6) rotate(0deg); opacity: 0.5; }
+
+/* Converge into 'i' stem */
+.morph-loader-box.merging .c2 { transform: translate(38px, -15px) scale(0.65) rotate(0deg); opacity: 0.7; }
+.morph-loader-box.merging .c4 { transform: translate(38px, 25px) scale(0.6) rotate(0deg); opacity: 0.6; }
+.morph-loader-box.merging .c6 { transform: translate(38px, 42px) scale(0.6) rotate(0deg); opacity: 0.5; }
+.morph-loader-box.merging .c10 { transform: translate(38px, 5px) scale(0.6) rotate(0deg); opacity: 0.6; }
+
+/* c8 transforms into the electric blue dot */
+.morph-loader-box.merging .c8 {
+    transform: translate(38px, -48px) scale(1) rotate(0deg);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #3b66ff;
+    color: transparent;
+    opacity: 1;
+}
+
+/* STAGE 3: Formed 'hi' */
+.morph-loader-box.formed .abjad-char {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2);
+    transition: transform 0.25s ease-out, opacity 0.2s ease-out;
+}
+.morph-loader-box.formed .c8 {
+    opacity: 0;
+    transform: translate(38px, -48px) scale(1.1);
+}
+
+.hi-svg {
+    position: absolute;
+    width: 140px;
+    height: 154px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform, opacity;
+}
+
+.morph-loader-box.formed .hi-svg {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
-    transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-#svg-combined {
-    width: 120px;
-    height: 120px;
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.65) rotate(-10deg);
-    transition: opacity 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-#svg-hi {
-    width: 135px;
-    height: 150px;
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.65);
-    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 #hi-dot {
     fill: #3b66ff;
     transform-origin: 409px 107px;
-    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform: scale(0);
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.morph-loader-box.formed #hi-dot {
+    transform: scale(1);
 }
 
 /* CONTROLS & SKIP */

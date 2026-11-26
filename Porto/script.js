@@ -510,28 +510,27 @@ import { createBadgeScene } from './assets/badge/badge-scene.js';
     }
 
     // ==========================================================================
-    // 8. MINIMALIST 3-IN-1 TO 'HI' MORPH LOADING SCREEN (RECENT DESIGN)
+    // 8. MINIMALIST ALPHABET TO 'HI' MORPH LOADING SCREEN
     // ==========================================================================
     const soundLoader = document.getElementById('sound-loader');
-    const svgIcons = document.getElementById('svg-icons');
-    const svgCombined = document.getElementById('svg-combined');
-    const svgHi = document.getElementById('svg-hi');
-    const hiDot = document.getElementById('hi-dot');
+    const morphStage = document.getElementById('morph-loader-stage');
+    const abjadChars = document.querySelectorAll('.abjad-char');
     const loaderSkipBtn = document.getElementById('loader-skip-btn');
     const btnReplayLoader = document.getElementById('btn-replay-loader');
 
-    if (soundLoader && svgIcons && svgCombined && svgHi) {
+    if (soundLoader && morphStage && abjadChars.length > 0) {
         let isLoaderFinished = false;
+        let shuffleInterval = null;
         let timer1 = null;
         let timer2 = null;
         let timer3 = null;
-        let timer4 = null;
+        const alphabet = 'abcdefghijklmnopqrstuvwxyz';
 
         const clearTimers = () => {
+            clearInterval(shuffleInterval);
             clearTimeout(timer1);
             clearTimeout(timer2);
             clearTimeout(timer3);
-            clearTimeout(timer4);
         };
 
         const finishLoader = () => {
@@ -551,51 +550,39 @@ import { createBadgeScene } from './assets/badge/badge-scene.js';
             soundLoader.style.display = 'flex';
             soundLoader.classList.remove('is-exiting');
 
-            // Reset SVG states: Stage 1 active
-            svgIcons.style.opacity = '1';
-            svgIcons.style.transform = 'translate(-50%, -50%) scale(1)';
+            morphStage.className = 'morph-loader-box initial';
 
-            svgCombined.style.opacity = '0';
-            svgCombined.style.transform = 'translate(-50%, -50%) scale(0.65) rotate(-10deg)';
+            // Reset abjad letters content
+            abjadChars.forEach((c) => {
+                c.textContent = alphabet[Math.floor(Math.random() * alphabet.length)];
+            });
 
-            svgHi.style.opacity = '0';
-            svgHi.style.transform = 'translate(-50%, -50%) scale(0.65)';
-            if (hiDot) {
-                hiDot.style.transform = 'scale(0)';
-            }
+            // Fast kinetic scramble during initial float
+            shuffleInterval = setInterval(() => {
+                abjadChars.forEach((c) => {
+                    c.textContent = alphabet[Math.floor(Math.random() * alphabet.length)];
+                });
+            }, 110);
 
-            // Stage 2: 0.85s -> morph to combined icon
+            // Stage 2: 0.9s -> Letters converge and merge into 'h' and 'i'
             timer1 = setTimeout(() => {
                 if (isLoaderFinished) return;
-                svgIcons.style.opacity = '0';
-                svgIcons.style.transform = 'translate(-50%, -50%) scale(0.7)';
+                clearInterval(shuffleInterval);
+                morphStage.classList.remove('initial');
+                morphStage.classList.add('merging');
+            }, 900);
 
-                svgCombined.style.opacity = '1';
-                svgCombined.style.transform = 'translate(-50%, -50%) scale(1) rotate(0deg)';
-            }, 850);
-
-            // Stage 3: 1.75s -> morph to 'hi' with bouncy blue dot
+            // Stage 3: 1.55s -> Letters fuse into solid 'hi' with bouncy blue dot
             timer2 = setTimeout(() => {
                 if (isLoaderFinished) return;
-                svgCombined.style.opacity = '0';
-                svgCombined.style.transform = 'translate(-50%, -50%) scale(0.7) rotate(15deg)';
+                morphStage.classList.remove('merging');
+                morphStage.classList.add('formed');
+            }, 1550);
 
-                svgHi.style.opacity = '1';
-                svgHi.style.transform = 'translate(-50%, -50%) scale(1)';
-
-                if (hiDot) {
-                    hiDot.style.transform = 'scale(1.35)';
-                    timer3 = setTimeout(() => {
-                        if (isLoaderFinished) return;
-                        hiDot.style.transform = 'scale(1)';
-                    }, 240);
-                }
-            }, 1750);
-
-            // Stage 4: 2.75s -> smooth exit
-            timer4 = setTimeout(() => {
+            // Stage 4: 2.65s -> Smooth exit
+            timer3 = setTimeout(() => {
                 finishLoader();
-            }, 2750);
+            }, 2650);
         };
 
         if (loaderSkipBtn) {

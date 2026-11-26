@@ -31,7 +31,7 @@
 
 <body>
     <!-- ==========================================================================
-         MINIMALIST 3-IN-1 TO 'HI' MORPH LOADING SCREEN (RECENT DESIGN)
+         MINIMALIST ALPHABET TO 'HI' MORPH LOADING SCREEN
          ========================================================================== -->
     <div id="sound-loader" class="sound-loader" role="dialog" aria-modal="true" aria-label="Loading portfolio">
         <div class="loader-top-bar">
@@ -42,45 +42,23 @@
         </div>
 
         <div class="loader-center-stage">
-            <div class="morph-loader-box">
-                <!-- 1. Initial 3 Icons: Signal, WiFi, Battery -->
-                <svg class="morph-svg" id="svg-icons" viewBox="0 0 320 120" fill="none">
-                    <!-- Signal Bars -->
-                    <g id="signal-group" fill="currentColor">
-                        <rect x="30" y="70" width="8" height="24" rx="4" />
-                        <rect x="44" y="58" width="8" height="36" rx="4" />
-                        <rect x="58" y="46" width="8" height="48" rx="4" />
-                        <rect x="72" y="34" width="8" height="60" rx="4" />
-                    </g>
-                    <!-- WiFi Icon -->
-                    <g id="wifi-group" stroke="currentColor" stroke-width="8" stroke-linecap="round">
-                        <path d="M 125 45 A 48 48 0 0 1 195 45" />
-                        <path d="M 137 60 A 32 32 0 0 1 183 60" />
-                        <circle cx="160" cy="84" r="5" fill="currentColor" stroke="none" />
-                    </g>
-                    <!-- Battery Icon -->
-                    <g id="battery-group" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="225" y="44" width="56" height="32" rx="10" fill="currentColor" />
-                        <path d="M 283 54 V 66" stroke-width="6" />
-                    </g>
-                </svg>
+            <div class="morph-loader-box initial" id="morph-loader-stage">
+                <!-- 1. Scattered abjad letters that converge -->
+                <div class="letters-container" id="letters-container">
+                    <div class="abjad-char c1">a</div>
+                    <div class="abjad-char c2">b</div>
+                    <div class="abjad-char c3">c</div>
+                    <div class="abjad-char c4">d</div>
+                    <div class="abjad-char c5">e</div>
+                    <div class="abjad-char c6">f</div>
+                    <div class="abjad-char c7">g</div>
+                    <div class="abjad-char c8">i</div>
+                    <div class="abjad-char c9">h</div>
+                    <div class="abjad-char c10">k</div>
+                </div>
 
-                <!-- 2. Morphed Combined 3-in-1 Status Symbol -->
-                <svg class="morph-svg" id="svg-combined" viewBox="0 0 160 160" fill="none">
-                    <path id="comb-ring" d="M 32 105 A 55 55 0 1 1 128 105" stroke="currentColor" stroke-width="9" stroke-linecap="round" />
-                    <circle cx="44" cy="126" r="4.5" fill="currentColor" />
-                    <circle cx="68" cy="134" r="4.5" fill="currentColor" />
-                    <circle cx="92" cy="134" r="4.5" fill="currentColor" />
-                    <circle cx="116" cy="126" r="4.5" fill="currentColor" />
-                    <g stroke="currentColor" stroke-width="8" stroke-linecap="round">
-                        <path d="M 60 70 A 28 28 0 0 1 100 70" />
-                        <path d="M 69 82 A 15 15 0 0 1 91 82" />
-                        <circle cx="80" cy="98" r="4.5" fill="currentColor" stroke="none" />
-                    </g>
-                </svg>
-
-                <!-- 3. Final Minimalist 'hi' Greeting -->
-                <svg class="morph-svg" id="svg-hi" viewBox="0 0 500 550" fill="currentColor">
+                <!-- 2. Final Minimalist 'hi' Greeting (from reference) -->
+                <svg class="hi-svg" id="svg-hi" viewBox="0 0 500 550" fill="currentColor">
                     <!-- letter h -->
                     <path id="hi-h" d="M 50 52 H 136 V 215 C 158 190, 185 187, 216 187 C 270 187, 302 218, 302 270 V 501 H 216 V 295 C 216 265, 198 260, 178 260 C 158 260, 136 272, 136 308 V 501 H 50 Z" />
                     <!-- letter i stem -->
