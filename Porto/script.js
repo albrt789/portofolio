@@ -509,7 +509,6 @@ import { createBadgeScene } from './assets/badge/badge-scene.js';
     const soundLoader = document.getElementById('sound-loader');
     const morphStage = document.getElementById('morph-loader-stage');
     const abjadChars = document.querySelectorAll('.abjad-char');
-    const loaderSkipBtn = document.getElementById('loader-skip-btn');
     const btnReplayLoader = document.getElementById('btn-replay-loader');
 
     if (soundLoader && morphStage && abjadChars.length > 0) {
@@ -578,13 +577,6 @@ import { createBadgeScene } from './assets/badge/badge-scene.js';
                 finishLoader();
             }, 2650);
         };
-
-        if (loaderSkipBtn) {
-            loaderSkipBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                finishLoader();
-            });
-        }
 
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && !isLoaderFinished) {
