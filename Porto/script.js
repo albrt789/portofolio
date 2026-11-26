@@ -9,7 +9,7 @@ import { createBadgeScene } from './assets/badge/badge-scene.js';
     'use strict';
 
     // ==========================================================================
-    // 1. LENIS SMOOTH SCROLL
+    // 1. LENIS SMOOTH SCROLL & NAVBAR SMOOTH NAVIGATION
     // ==========================================================================
     let lenis = null;
     try {
@@ -30,6 +30,40 @@ import { createBadgeScene } from './assets/badge/badge-scene.js';
     } catch (e) {
         console.warn('Lenis scroll error:', e);
     }
+
+    // Smooth scroll for navbar buttons & hash anchor links
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener('click', (e) => {
+            const href = anchor.getAttribute('href');
+            if (!href || href === '#') return;
+
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+
+                const offset = href === '#home' ? 0 : -64;
+
+                if (lenis) {
+                    lenis.scrollTo(href === '#home' ? 0 : target, {
+                        offset: offset,
+                        duration: 1.2,
+                    });
+                } else {
+                    const targetTop = href === '#home'
+                        ? 0
+                        : target.getBoundingClientRect().top + window.scrollY - 64;
+                    window.scrollTo({
+                        top: Math.max(0, targetTop),
+                        behavior: 'smooth',
+                    });
+                }
+
+                if (history.pushState) {
+                    history.pushState(null, '', href);
+                }
+            }
+        });
+    });
 
     // ==========================================================================
     // 2. RECENT.DESIGN 3D PIXEL-PARTICLE THEME TOGGLE SWITCH ENGINE
