@@ -703,7 +703,7 @@ canvas.badge-canvas:active {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: clamp(280px, 26vw, 360px);
+    width: clamp(210px, 18vw, 270px);
     aspect-ratio: 16 / 10;
     pointer-events: none;
     z-index: 10;
@@ -809,10 +809,10 @@ body.dark .deck-active-card {
 }
 
 .archive-row {
-    padding: 32px var(--page-gutter);
+    padding: 22px var(--page-gutter);
     border-bottom: 1px solid var(--border);
     display: grid;
-    grid-template-columns: 48px 1fr 1fr;
+    grid-template-columns: 36px 1fr 1fr;
     align-items: center;
     cursor: pointer;
     transition: opacity 0.25s var(--ease-out), transform 0.25s var(--ease-out), color 0.2s ease;
@@ -822,36 +822,41 @@ body.dark .deck-active-card {
 
 .archive-row-num {
     font-family: var(--font-sans);
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
     color: var(--text-muted);
-    transition: color 0.2s ease;
+    opacity: 0.65;
+    transition: color 0.2s ease, opacity 0.2s ease;
 }
 
 .archive-row-main {
     display: flex;
     align-items: baseline;
-    gap: 16px;
+    gap: 14px;
+    min-width: 0;
 }
 
 .archive-row-title {
     font-family: var(--font-serif);
-    font-size: clamp(20px, 2.3vw, 28px);
+    font-size: clamp(14px, 1.25vw, 17px);
     font-weight: 400;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.01em;
     color: var(--text);
+    white-space: nowrap;
     transition: color 0.2s ease;
 }
 
 .archive-view-pill {
     font-family: var(--font-sans);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
     color: var(--text-muted);
     text-decoration: underline;
     text-underline-offset: 3px;
     opacity: 0;
     transform: translateX(-4px);
+    white-space: nowrap;
     transition: all 0.2s var(--ease-out);
 }
 
@@ -859,8 +864,8 @@ body.dark .deck-active-card {
     display: flex;
     justify-content: flex-end;
     align-items: baseline;
-    gap: 20px;
-    font-size: 14px;
+    gap: 16px;
+    font-size: 12px;
     color: var(--text-muted);
     text-align: right;
     transition: color 0.2s ease;
@@ -868,12 +873,15 @@ body.dark .deck-active-card {
 
 .archive-tech {
     color: var(--text-muted);
+    opacity: 0.75;
+    letter-spacing: 0.01em;
 }
 
 .archive-date {
     font-family: var(--font-sans);
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-muted);
+    opacity: 0.85;
     white-space: nowrap;
 }
 
@@ -901,8 +909,11 @@ body.dark .deck-active-card {
     color: var(--text);
 }
 
-.archive-row:hover .archive-row-num {
+.archive-row:hover .archive-row-num,
+.archive-row:hover .archive-tech,
+.archive-row:hover .archive-date {
     color: var(--text);
+    opacity: 1;
 }
 
 /* ==========================================================================
@@ -1305,6 +1316,29 @@ body.dark .deck-active-card {
 
     .certs-pinboard {
         grid-template-columns: 1fr;
+    }
+
+    .archive-preview-stage {
+        display: none;
+    }
+
+    .archive-row {
+        grid-template-columns: 28px 1fr auto;
+        gap: 14px;
+        padding: 16px var(--page-gutter);
+    }
+
+    .archive-row-title {
+        white-space: normal;
+        font-size: 15px;
+    }
+
+    .archive-tech {
+        display: none;
+    }
+
+    .archive-date {
+        font-size: 12px;
     }
 }
 
