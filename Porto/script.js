@@ -474,4 +474,234 @@ import { createBadgeScene } from './assets/badge/badge-scene.js';
             }
         });
     }
+
+    // ==========================================================================
+    // 8. SOUND LOGO LOADING SCREEN (RECENT / APPLE MUSIC INSPIRED)
+    // ==========================================================================
+    const soundLoader = document.getElementById('sound-loader');
+    const loaderCanvas = document.getElementById('loader-canvas');
+    const squircleWrap = document.getElementById('glass-squircle-wrap');
+    const lensDroplet = document.getElementById('acoustic-lens-droplet');
+    const wordmarkWrap = document.getElementById('wordmark-container');
+    const wmRed = document.getElementById('wm-red');
+    const wmCyan = document.getElementById('wm-cyan');
+    const flare = document.getElementById('anamorphic-flare');
+    const wordmarkSub = document.getElementById('wordmark-sub');
+    const loaderAudio = document.getElementById('loader-audio');
+    const loaderSkipBtn = document.getElementById('loader-skip-btn');
+    const soundHintText = document.getElementById('sound-hint-text');
+    const btnReplayLoader = document.getElementById('btn-replay-loader');
+
+    if (soundLoader && loaderCanvas) {
+        const ctx = loaderCanvas.getContext('2d');
+        let ripples = [];
+        let rippleTimer = null;
+        let animFrameId = null;
+        let isLoaderFinished = false;
+
+        const addRipple = (radius, speed, maxRadius, color, width) => {
+            ripples.push({ r: radius, speed, maxRadius, color, width, alpha: 1 });
+        };
+
+        const animateCanvas = () => {
+            ctx.clearRect(0, 0, loaderCanvas.width, loaderCanvas.height);
+            const cx = loaderCanvas.width / 2;
+            const cy = loaderCanvas.height / 2;
+
+            for (let i = ripples.length - 1; i >= 0; i--) {
+                const rp = ripples[i];
+                rp.r += rp.speed;
+                rp.alpha = Math.max(0, 1 - (rp.r / rp.maxRadius));
+
+                if (rp.alpha <= 0) {
+                    ripples.splice(i, 1);
+                    continue;
+                }
+
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(cx, cy, rp.r, 0, Math.PI * 2);
+                ctx.strokeStyle = rp.color.replace(/[\d\.]+\)$/, `${rp.alpha * 0.75})`);
+                ctx.lineWidth = rp.width;
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            if (!isLoaderFinished) {
+                animFrameId = requestAnimationFrame(animateCanvas);
+            }
+        };
+
+        const tryPlayAudio = () => {
+            if (loaderAudio) {
+                loaderAudio.currentTime = 0;
+                const playPromise = loaderAudio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        if (soundHintText) soundHintText.textContent = 'SOUND ACTIVE';
+                    }).catch(() => {
+                        if (soundHintText) soundHintText.textContent = 'CLICK ANYWHERE FOR SOUND';
+                    });
+                }
+            }
+        };
+
+        const finishLoader = () => {
+            if (isLoaderFinished) return;
+            isLoaderFinished = true;
+            clearInterval(rippleTimer);
+            if (animFrameId) cancelAnimationFrame(animFrameId);
+
+            soundLoader.classList.add('is-exiting');
+            setTimeout(() => {
+                soundLoader.style.display = 'none';
+            }, 700);
+        };
+
+        const startSequence = () => {
+            isLoaderFinished = false;
+            soundLoader.style.display = 'flex';
+            soundLoader.classList.remove('is-exiting');
+            ripples = [];
+
+            // Reset initial styling
+            if (squircleWrap) {
+                squircleWrap.style.transform = 'scale(1)';
+                squircleWrap.style.opacity = '1';
+            }
+            if (lensDroplet) {
+                lensDroplet.style.transform = 'scale(0.6)';
+                lensDroplet.style.opacity = '0';
+            }
+            if (wordmarkWrap) {
+                wordmarkWrap.style.transform = 'scale(0.92)';
+                wordmarkWrap.style.opacity = '0';
+            }
+            if (wmRed) wmRed.style.opacity = '0';
+            if (wmCyan) wmCyan.style.opacity = '0';
+            if (flare) {
+                flare.style.opacity = '0';
+                flare.style.transform = 'translate(-50%, -50%) scaleX(0)';
+            }
+            if (wordmarkSub) {
+                wordmarkSub.style.opacity = '0';
+                wordmarkSub.style.transform = 'translateY(6px)';
+            }
+
+            tryPlayAudio();
+            animFrameId = requestAnimationFrame(animateCanvas);
+
+            // Phase 1: Subtle fluid ripples around squircle
+            const startT = performance.now();
+            rippleTimer = setInterval(() => {
+                const elapsed = (performance.now() - startT) / 1000;
+                if (elapsed < 1.3) {
+                    addRipple(68, 1.3, 190, 'rgba(0, 230, 255, 0.45)', 1.5);
+                    addRipple(58, 1.0, 150, 'rgba(255, 0, 120, 0.35)', 1.5);
+                }
+            }, 380);
+
+            // Stage 2: 1.2s acoustic pulse & lens droplet
+            setTimeout(() => {
+                if (isLoaderFinished) return;
+                addRipple(30, 4.8, 280, 'rgba(0, 240, 255, 0.95)', 3);
+                addRipple(20, 4.0, 250, 'rgba(255, 0, 128, 0.85)', 2.5);
+
+                if (squircleWrap) {
+                    squircleWrap.style.transform = 'scale(0.35)';
+                    squircleWrap.style.opacity = '0';
+                }
+                if (lensDroplet) {
+                    lensDroplet.style.opacity = '1';
+                    lensDroplet.style.transform = 'scale(1.2)';
+                }
+            }, 1200);
+
+            // Stage 3: 1.8s horizontal acoustic flare & chromatic wordmark
+            setTimeout(() => {
+                if (isLoaderFinished) return;
+                addRipple(45, 6.2, 340, 'rgba(255, 255, 255, 0.95)', 2);
+
+                if (lensDroplet) {
+                    lensDroplet.style.transform = 'scaleX(3) scaleY(0.35)';
+                    lensDroplet.style.opacity = '0';
+                }
+                if (wordmarkWrap) {
+                    wordmarkWrap.style.opacity = '1';
+                    wordmarkWrap.style.transform = 'scale(1)';
+                }
+                if (flare) {
+                    flare.style.opacity = '1';
+                    flare.style.transform = 'translate(-50%, -50%) scaleX(1)';
+                }
+                if (wmRed) {
+                    wmRed.style.opacity = '0.9';
+                    wmRed.style.transform = 'translateX(-5px)';
+                }
+                if (wmCyan) {
+                    wmCyan.style.opacity = '0.9';
+                    wmCyan.style.transform = 'translateX(5px)';
+                }
+            }, 1800);
+
+            // Stage 4: 2.4s chromatic dispersion snaps into clean white wordmark
+            setTimeout(() => {
+                if (isLoaderFinished) return;
+                if (wmRed) {
+                    wmRed.style.opacity = '0';
+                    wmRed.style.transform = 'translateX(0)';
+                }
+                if (wmCyan) {
+                    wmCyan.style.opacity = '0';
+                    wmCyan.style.transform = 'translateX(0)';
+                }
+                if (flare) {
+                    flare.style.opacity = '0';
+                    flare.style.transform = 'translate(-50%, -50%) scaleX(1.4)';
+                }
+                if (wordmarkSub) {
+                    wordmarkSub.style.opacity = '1';
+                    wordmarkSub.style.transform = 'translateY(0)';
+                }
+            }, 2400);
+
+            // Stage 5: 3.4s dissolve loader into main site
+            setTimeout(() => {
+                finishLoader();
+            }, 3400);
+        };
+
+        // User click on loader un-mutes / plays audio
+        soundLoader.addEventListener('click', () => {
+            if (loaderAudio && loaderAudio.paused && !isLoaderFinished) {
+                tryPlayAudio();
+            }
+        });
+
+        if (loaderSkipBtn) {
+            loaderSkipBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                finishLoader();
+            });
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !isLoaderFinished) {
+                finishLoader();
+            }
+        });
+
+        if (btnReplayLoader) {
+            btnReplayLoader.addEventListener('click', () => {
+                startSequence();
+            });
+        }
+
+        // Start sequence on page load
+        if (document.readyState === 'complete') {
+            startSequence();
+        } else {
+            window.addEventListener('load', startSequence);
+        }
+    }
 })();

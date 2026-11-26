@@ -30,6 +30,62 @@
 </head>
 
 <body>
+    <!-- ==========================================================================
+         SOUND LOGO LOADING SCREEN (RECENT / APPLE MUSIC INSPIRED)
+         ========================================================================== -->
+    <div id="sound-loader" class="sound-loader" role="dialog" aria-modal="true" aria-label="Loading portfolio">
+        <canvas id="loader-canvas" class="loader-canvas" width="600" height="600"></canvas>
+
+        <div class="loader-top-bar">
+            <button class="loader-skip-btn" id="loader-skip-btn" type="button" aria-label="Skip loading animation">
+                <span>Skip</span>
+                <kbd>ESC</kbd>
+            </button>
+        </div>
+
+        <div class="loader-center-stage">
+            <!-- STAGE 1: Glass Squircle with Bespoke AR Monogram -->
+            <div class="glass-squircle-wrap" id="glass-squircle-wrap">
+                <div class="glass-squircle" id="glass-squircle">
+                    <div class="chroma-rim-light"></div>
+                    <div class="glass-inner-body"></div>
+                    <div class="monogram-mark">
+                        <!-- Albert Rafael Monogram (Geometric Liquid Metal/Glass) -->
+                        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M 24 78 L 47 22" />
+                            <path d="M 35 53 H 66" />
+                            <path d="M 47 22 V 78" />
+                            <path d="M 47 22 H 68 C 80 22 86 30 86 38 C 86 46 80 53 66 53" />
+                            <path d="M 64 53 L 84 78" />
+                        </svg>
+                    </div>
+                    <div class="glass-specular-glint"></div>
+                </div>
+            </div>
+
+            <!-- STAGE 2: Acoustic Mineral Lens Droplet -->
+            <div class="acoustic-lens-droplet" id="acoustic-lens-droplet"></div>
+
+            <!-- STAGE 3: Wordmark with Real Chromatic Aberration -->
+            <div class="wordmark-container" id="wordmark-container">
+                <div class="wordmark-stage">
+                    <div class="wordmark-text wm-chroma-red" id="wm-red">Albert Rafael</div>
+                    <div class="wordmark-text wm-chroma-cyan" id="wm-cyan">Albert Rafael</div>
+                    <div class="wordmark-text wm-main">Albert Rafael</div>
+                    <div class="anamorphic-flare" id="anamorphic-flare"></div>
+                </div>
+                <div class="wordmark-sub" id="wordmark-sub">PORTFOLIO · 2026</div>
+            </div>
+        </div>
+
+        <div class="loader-bottom-bar" id="loader-sound-hint">
+            <div class="sound-indicator"></div>
+            <span id="sound-hint-text">CLICK ANYWHERE FOR SOUND</span>
+        </div>
+
+        <audio id="loader-audio" src="assets/audio/sound-logo.wav" preload="auto"></audio>
+    </div>
+
     <!-- TOP NAVIGATION BAR -->
     <header class="top-nav">
         <a class="logo" href="#home">
@@ -341,6 +397,7 @@
 
                 <div class="footer-bottom-line">
                     <span>© <span id="year">2026</span> Albert Rafael Sinaga</span>
+                    <button id="btn-replay-loader" class="btn-replay-loader" type="button" title="Replay intro sound logo">Replay Intro ↺</button>
                     <span>Designed with craftsmanship &amp; physics · No generic templates</span>
                 </div>
             </div>
