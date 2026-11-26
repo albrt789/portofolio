@@ -87,7 +87,7 @@
             <a href="#contact">Contact</a>
         </nav>
         <div class="nav-right">
-            <button type="button" class="btn-more-nav" id="btn-open-about-nav">[more]</button>
+            <button type="button" class="btn-more-nav" id="btn-open-about-nav">About Me</button>
             <a href="assets/cv.pdf" class="btn-resume" download>Resume ↓</a>
             
             <!-- 3D NEUMORPHIC PIXEL-PARTICLE THEME TOGGLE (RECENT DESIGN) -->
@@ -111,7 +111,7 @@
             <p class="hero-intro">
                 I design products and the<br>
                 stories behind them.
-                <button type="button" class="btn-more" id="btn-open-about">[more]</button>
+                <button type="button" class="btn-more" id="btn-open-about">About Me</button>
             </p>
 
             <!-- Top Right Education -->
@@ -137,7 +137,7 @@
             <!-- Mobile Fallback / Summary -->
             <div class="hero-mobile-summary">
                 <p class="lead">I build software and practical web applications.</p>
-                <p class="meta">Currently studying Informatics at Universitas Gunadarma. <button type="button" class="btn-more" id="btn-open-about-mobile">[more]</button></p>
+                <p class="meta">Currently studying Informatics at Universitas Gunadarma. <button type="button" class="btn-more" id="btn-open-about-mobile">About Me</button></p>
             </div>
         </section>
 
@@ -416,11 +416,15 @@
     <dialog id="about-drawer" class="about-dialog" aria-labelledby="about-title">
         <div class="drawer-panel">
             <div class="drawer-header">
-                <h2 id="about-title">About</h2>
+                <h2 id="about-title">About Me</h2>
                 <button type="button" class="drawer-close-btn" id="btn-close-about" aria-label="Close dialog">×</button>
             </div>
 
             <div class="drawer-body">
+                <div class="drawer-photo-box">
+                    <img src="assets/foto.jpg" alt="Albert Rafael Sinaga" class="drawer-photo" loading="lazy">
+                </div>
+
                 <div class="drawer-bio">
                     <p>
                         I'm Albert Rafael Sinaga, an Informatics student at Universitas Gunadarma. I like working on software end-to-end: understanding the problem, designing clean logic, sweating the implementation details, and building applications that make a tangible difference.
@@ -428,10 +432,6 @@
                     <p>
                         From content-based movie recommendation systems with cosine similarity and machine learning, to table QR ordering systems with Kitchen Displays in Laravel, I enjoy writing code that is fast, robust, and delightful to use.
                     </p>
-                </div>
-
-                <div class="drawer-photo-box">
-                    <img src="assets/foto.jpg" alt="Albert Rafael Sinaga" class="drawer-photo" loading="lazy">
                 </div>
 
                 <div class="drawer-experience">

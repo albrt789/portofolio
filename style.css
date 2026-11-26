@@ -205,6 +205,7 @@ body.dark .brand-logo-icon {
     color: var(--text-muted);
     text-decoration: underline;
     text-underline-offset: 3px;
+    white-space: nowrap;
     transition: color 0.15s ease;
 }
 
@@ -219,6 +220,7 @@ body.dark .brand-logo-icon {
     border-radius: 999px;
     border: 1px solid var(--border);
     background: var(--surface);
+    white-space: nowrap;
     transition: all 0.2s var(--ease-out);
 }
 
@@ -365,6 +367,7 @@ body.dark .thumb-glow {
     color: var(--text-muted);
     text-decoration: underline;
     text-underline-offset: 3px;
+    white-space: nowrap;
     transition: color 0.15s ease;
     cursor: pointer;
 }
@@ -1284,19 +1287,23 @@ body.dark .deck-active-card {
 }
 
 .drawer-photo-box {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    border-radius: 8px;
+    width: 170px;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 14px;
     overflow: hidden;
-    background: #eaeaea;
+    background: var(--surface-hover);
     border: 1px solid var(--border);
+    margin: 0 auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .drawer-photo {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 20%;
+    object-position: center center;
+    display: block;
 }
 
 .drawer-experience h3 {
@@ -1692,7 +1699,7 @@ body.dark .loader-skip-btn kbd {
     }
 }
 
-@media (max-width: 440px) {
+@media (max-width: 520px) {
     .btn-more-nav {
         display: none;
     }
