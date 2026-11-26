@@ -44,7 +44,16 @@
         <div class="nav-right">
             <button type="button" class="btn-more-nav" id="btn-open-about-nav">[more]</button>
             <a href="assets/cv.pdf" class="btn-resume" download>Resume ↓</a>
-            <button id="theme" class="theme-btn" aria-label="Toggle theme">☾</button>
+            
+            <!-- 3D NEUMORPHIC PIXEL-PARTICLE THEME TOGGLE (RECENT DESIGN) -->
+            <button id="theme-toggle" class="recent-theme-toggle" role="switch" aria-checked="false" aria-label="Toggle dark and light mode">
+                <div class="toggle-track">
+                    <div class="toggle-thumb" id="toggle-thumb">
+                        <div class="thumb-glow"></div>
+                        <canvas id="toggle-canvas" class="toggle-canvas" width="48" height="48"></canvas>
+                    </div>
+                </div>
+            </button>
         </div>
     </header>
 

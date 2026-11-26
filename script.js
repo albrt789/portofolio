@@ -32,28 +32,168 @@ import { createBadgeScene } from './assets/badge/badge-scene.js';
     }
 
     // ==========================================================================
-    // 2. THEME TOGGLE (LIGHT / DARK)
+    // 2. RECENT.DESIGN 3D PIXEL-PARTICLE THEME TOGGLE SWITCH ENGINE
     // ==========================================================================
-    const themeBtn = document.querySelector('#theme');
+    const toggleBtn = document.getElementById('theme-toggle');
+    const toggleCanvas = document.getElementById('toggle-canvas');
     const storedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let isDarkMode = storedTheme === 'dark' || (!storedTheme && prefersDark);
 
-    if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+    // Apply initial body theme & toggle state
+    if (isDarkMode) {
         document.body.classList.add('dark');
-        if (themeBtn) themeBtn.textContent = '☀';
+        if (toggleBtn) toggleBtn.setAttribute('aria-checked', 'true');
     } else {
         document.body.classList.remove('dark');
-        if (themeBtn) themeBtn.textContent = '☾';
+        if (toggleBtn) toggleBtn.setAttribute('aria-checked', 'false');
     }
 
-    if (themeBtn) {
-        themeBtn.addEventListener('click', () => {
-            const isDark = document.body.classList.toggle('dark');
-            themeBtn.textContent = isDark ? '☀' : '☾';
-            try {
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            } catch (e) {}
-        });
+    if (toggleCanvas) {
+        const ctx = toggleCanvas.getContext('2d');
+        const SUN_PIXELS = [
+            [7,2],[3,3],[7,3],[11,3],[4,4],[10,4],[6,5],[7,5],[8,5],
+            [5,6],[6,6],[7,6],[8,6],[9,6],[2,7],[3,7],[5,7],[6,7],
+            [7,7],[8,7],[9,7],[11,7],[12,7],[5,8],[6,8],[7,8],[8,8],
+            [9,8],[6,9],[7,9],[8,9],[4,10],[10,10],[3,11],[7,11],[11,11],[7,12]
+        ];
+
+        const MOON_STAR_PIXELS = [
+            [5,3],[6,3],[7,3],[11,3],[4,4],[5,4],[10,4],[11,4],[12,4],[3,5],[4,5],[5,5],[11,5],
+            [3,6],[4,6],[5,6],[3,7],[4,7],[5,7],[3,8],[4,8],[5,8],[3,9],[4,9],[5,9],[6,9],
+            [4,10],[5,10],[6,10],[7,10],[8,10],[5,11],[6,11],[7,11],[8,11]
+        ];
+
+        const particleCount = SUN_PIXELS.length; // 37
+        const particles = [];
+
+        for (let i = 0; i < particleCount; i++) {
+            const initialCoords = isDarkMode 
+                ? (MOON_STAR_PIXELS[i] || MOON_STAR_PIXELS[i % MOON_STAR_PIXELS.length]) 
+                : SUN_PIXELS[i];
+            particles.push({
+                x: initialCoords[0],
+                y: initialCoords[1],
+                targetX: initialCoords[0],
+                targetY: initialCoords[1],
+                originX: initialCoords[0],
+                originY: initialCoords[1],
+                scatterVx: 0,
+                scatterVy: 0,
+                alpha: 1,
+            });
+        }
+
+        let animProgress = 1;
+        let isAnimating = false;
+        let animStartTime = 0;
+        const ANIM_DURATION = 420; // ms
+
+        const renderParticles = () => {
+            ctx.clearRect(0, 0, toggleCanvas.width, toggleCanvas.height);
+            const scale = toggleCanvas.width / 15; // ~3.2px per grid unit
+            const pSize = 2.7;
+
+            const isDarkNow = document.body.classList.contains('dark');
+            ctx.fillStyle = isDarkNow ? 'rgba(255, 255, 255, 0.95)' : 'rgba(35, 36, 40, 0.95)';
+            ctx.shadowColor = isDarkNow ? 'rgba(165, 180, 252, 0.85)' : 'rgba(245, 158, 11, 0.65)';
+            ctx.shadowBlur = isDarkNow ? 4 : 2;
+
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                if (p.alpha <= 0.02) continue;
+
+                const drawX = p.x * scale;
+                const drawY = p.y * scale;
+
+                ctx.globalAlpha = p.alpha;
+                ctx.fillRect(Math.round(drawX), Math.round(drawY), pSize, pSize);
+            }
+            ctx.globalAlpha = 1;
+        };
+
+        const updateAnimation = (now) => {
+            if (!isAnimating) return;
+            const elapsed = now - animStartTime;
+            animProgress = Math.min(1, elapsed / ANIM_DURATION);
+
+            // Phase 1 (0 -> 0.45): Dissolve & Scatter explosion
+            // Phase 2 (0.45 -> 1.0): Snap to target with spring physics
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+
+                if (animProgress < 0.45) {
+                    const scatterT = animProgress / 0.45;
+                    p.x = p.originX + p.scatterVx * scatterT;
+                    p.y = p.originY + p.scatterVy * scatterT;
+                } else {
+                    const reassembleT = (animProgress - 0.45) / 0.55;
+                    // Smooth spring interpolation
+                    const springEase = (t) => Math.sin(t * Math.PI / 2);
+                    const tClamped = springEase(reassembleT);
+                    const scatterEndX = p.originX + p.scatterVx;
+                    const scatterEndY = p.originY + p.scatterVy;
+
+                    p.x = scatterEndX + (p.targetX - scatterEndX) * tClamped;
+                    p.y = scatterEndY + (p.targetY - scatterEndY) * tClamped;
+                }
+            }
+
+            renderParticles();
+
+            if (animProgress < 1) {
+                requestAnimationFrame(updateAnimation);
+            } else {
+                isAnimating = false;
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    p.x = p.targetX;
+                    p.y = p.targetY;
+                    p.originX = p.targetX;
+                    p.originY = p.targetY;
+                }
+                renderParticles();
+            }
+        };
+
+        const triggerMorph = (toDark) => {
+            const targets = toDark ? MOON_STAR_PIXELS : SUN_PIXELS;
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                p.originX = p.x;
+                p.originY = p.y;
+                const target = targets[i] || targets[i % targets.length];
+                p.targetX = target[0];
+                p.targetY = target[1];
+
+                // Scatter vector radiating outward with random noise
+                const dx = p.originX - 7;
+                const dy = p.originY - 7;
+                const angle = Math.atan2(dy, dx) + (Math.random() - 0.5) * 1.8;
+                const dist = 3.5 + Math.random() * 5.5;
+                p.scatterVx = Math.cos(angle) * dist;
+                p.scatterVy = Math.sin(angle) * dist;
+            }
+
+            isAnimating = true;
+            animStartTime = performance.now();
+            requestAnimationFrame(updateAnimation);
+        };
+
+        // Initial draw
+        renderParticles();
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                isDarkMode = document.body.classList.toggle('dark');
+                toggleBtn.setAttribute('aria-checked', isDarkMode ? 'true' : 'false');
+                try {
+                    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                } catch (e) {}
+
+                triggerMorph(isDarkMode);
+            });
+        }
     }
 
     // ==========================================================================

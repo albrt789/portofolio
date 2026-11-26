@@ -190,19 +190,103 @@ body.dark .top-nav {
     transform: translateY(-1px);
 }
 
-.theme-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 1px solid var(--border);
-    display: grid;
-    place-items: center;
-    font-size: 14px;
-    transition: border-color 0.15s ease;
+/* ==========================================================================
+   RECENT.DESIGN 3D NEUMORPHIC PIXEL-PARTICLE THEME TOGGLE SWITCH
+   ========================================================================== */
+.recent-theme-toggle {
+    position: relative;
+    width: 68px;
+    height: 34px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
 
-.theme-btn:hover {
-    border-color: var(--border-hover);
+.toggle-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 999px;
+    background: #e4e4e7;
+    box-shadow: 
+        inset 0 3px 6px rgba(0, 0, 0, 0.14),
+        inset 0 1px 2px rgba(0, 0, 0, 0.1),
+        0 1px 2px rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    transition: background-color 0.4s var(--ease-out), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+body.dark .toggle-track {
+    background: #141518;
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 
+        inset 0 3px 8px rgba(0, 0, 0, 0.7),
+        inset 0 1px 3px rgba(0, 0, 0, 0.5),
+        0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+.toggle-thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 28px;
+    height: 28px;
+    border-radius: 9px;
+    background: linear-gradient(180deg, #ffffff 0%, #f0f0f4 100%);
+    box-shadow: 
+        0 4px 10px rgba(0, 0, 0, 0.16),
+        0 1px 3px rgba(0, 0, 0, 0.1);
+    display: grid;
+    place-items: center;
+    transform: translate3d(34px, 0, 0); /* Default Light Mode: Right side */
+    transition: transform 0.44s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.35s ease, box-shadow 0.35s ease;
+    will-change: transform;
+}
+
+/* In Dark Mode: Left side */
+body.dark .toggle-thumb {
+    transform: translate3d(0px, 0, 0);
+    background: linear-gradient(180deg, #2b2d35 0%, #18191d 100%);
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.6),
+        0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Glowing Rim Light */
+.thumb-glow {
+    position: absolute;
+    inset: -2px;
+    border-radius: 11px;
+    border: 2px solid #f59e0b;
+    box-shadow: 
+        0 0 14px rgba(245, 158, 11, 0.75),
+        0 0 4px rgba(251, 191, 36, 0.95),
+        inset 0 0 5px rgba(245, 158, 11, 0.35);
+    transition: border-color 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+    pointer-events: none;
+}
+
+body.dark .thumb-glow {
+    border-color: #818cf8;
+    box-shadow: 
+        0 0 16px rgba(129, 140, 248, 0.8),
+        0 0 5px rgba(165, 180, 252, 1),
+        inset 0 0 5px rgba(129, 140, 248, 0.4);
+}
+
+.toggle-canvas {
+    width: 20px;
+    height: 20px;
+    display: block;
+    pointer-events: none;
 }
 
 /* ==========================================================================
