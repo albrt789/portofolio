@@ -245,12 +245,14 @@ import { createBadgeScene } from './assets/badge/badge-scene.js';
         if (!aboutDrawer) return;
         aboutDrawer.setAttribute('open', '');
         document.body.style.overflow = 'hidden';
+        if (lenis) lenis.stop();
     };
 
     const closeDrawer = () => {
         if (!aboutDrawer) return;
         aboutDrawer.removeAttribute('open');
         document.body.style.overflow = '';
+        if (lenis) lenis.start();
     };
 
     openAboutBtns.forEach(btn => btn.addEventListener('click', openDrawer));
@@ -460,12 +462,14 @@ import { createBadgeScene } from './assets/badge/badge-scene.js';
 
             certLightbox.setAttribute('open', '');
             document.body.style.overflow = 'hidden';
+            if (lenis) lenis.stop();
         };
 
         const closeLightbox = () => {
             if (!certLightbox) return;
             certLightbox.removeAttribute('open');
             document.body.style.overflow = '';
+            if (lenis) lenis.start();
         };
 
         archiveRows.forEach(row => {

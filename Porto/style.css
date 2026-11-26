@@ -1232,9 +1232,28 @@ body.dark .deck-active-card {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     transform: translateX(100%);
     transition: transform 0.45s var(--ease-out);
     will-change: transform;
+}
+
+.drawer-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.drawer-panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.drawer-panel::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 999px;
+}
+
+.drawer-panel::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
 }
 
 .about-dialog[open] .drawer-panel {

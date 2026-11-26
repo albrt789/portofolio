@@ -357,7 +357,7 @@
         <!-- ==========================================================================
              IN-PAGE CERTIFICATE LIGHTBOX MODAL (NO TAB SWITCHING)
              ========================================================================== -->
-        <dialog id="cert-lightbox" class="cert-lightbox-dialog" aria-labelledby="lightbox-title">
+        <dialog id="cert-lightbox" class="cert-lightbox-dialog" data-lenis-prevent aria-labelledby="lightbox-title">
             <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
             <div class="lightbox-content">
                 <div class="lightbox-header">
@@ -413,8 +413,8 @@
     <!-- ==========================================================================
          ABOUT DRAWER DIALOG (SLIDES OUT LIKE SAM CHENG'S [MORE] PANEL)
          ========================================================================== -->
-    <dialog id="about-drawer" class="about-dialog" aria-labelledby="about-title">
-        <div class="drawer-panel">
+    <dialog id="about-drawer" class="about-dialog" data-lenis-prevent aria-labelledby="about-title">
+        <div class="drawer-panel" data-lenis-prevent>
             <div class="drawer-header">
                 <h2 id="about-title">About Me</h2>
                 <button type="button" class="drawer-close-btn" id="btn-close-about" aria-label="Close dialog">×</button>
