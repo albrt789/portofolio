@@ -73,6 +73,7 @@ html {
     scroll-behavior: smooth;
     scroll-padding-top: 72px;
     background: var(--bg);
+    overflow-x: hidden;
 }
 
 html.lenis, html.lenis body {
@@ -146,9 +147,27 @@ body.dark .top-nav {
 .logo {
     display: flex;
     align-items: center;
+    gap: 10px;
     text-decoration: none;
     color: var(--text);
     flex-shrink: 0;
+}
+
+.brand-logo-icon {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    border-radius: 6px;
+    flex-shrink: 0;
+    transition: transform 0.25s var(--ease-out);
+}
+
+.logo:hover .brand-logo-icon {
+    transform: scale(1.08) rotate(-4deg);
+}
+
+body.dark .brand-logo-icon {
+    filter: invert(1) brightness(1.2);
 }
 
 .logo-text {
@@ -1082,6 +1101,7 @@ body.dark .deck-active-card {
 .footer-wrap {
     padding: 0 var(--page-gutter);
     max-width: 860px;
+    margin: 0 auto;
 }
 
 .footer-big-title {
@@ -1154,14 +1174,22 @@ body.dark .deck-active-card {
 }
 
 .footer-bottom-line {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     font-size: 13px;
     color: var(--text-muted);
-    padding-top: 32px;
+    padding: 32px var(--page-gutter) 0;
     border-top: 1px solid var(--border);
+    margin: 40px auto 0;
+}
+
+.footer-bottom-line span {
+    display: inline-block;
+    text-align: center;
+    margin: 0 auto;
 }
 
 /* ==========================================================================
@@ -1635,7 +1663,6 @@ body.dark .loader-skip-btn kbd {
     .lanyard-drag-hint {
         bottom: 74px;
     }
-    }
 
     .skills-row {
         grid-template-columns: 1fr;
@@ -1651,8 +1678,22 @@ body.dark .loader-skip-btn kbd {
         text-align: left;
     }
 
-    .footer-bottom-line {
-        text-align: center;
-        justify-content: center;
+    .minimal-form .form-inputs {
+        flex-direction: column;
+    }
+
+    .minimal-form input {
+        width: 100%;
+        flex: none;
+    }
+
+    .submit-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 440px) {
+    .btn-more-nav {
+        display: none;
     }
 }
