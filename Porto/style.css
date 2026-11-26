@@ -1155,8 +1155,9 @@ body.dark .deck-active-card {
 
 .footer-bottom-line {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    text-align: center;
     font-size: 13px;
     color: var(--text-muted);
     padding-top: 32px;
@@ -1651,8 +1652,7 @@ body.dark .loader-skip-btn kbd {
     }
 
     .footer-bottom-line {
-        flex-direction: column;
-        gap: 12px;
         text-align: center;
+        justify-content: center;
     }
 }
