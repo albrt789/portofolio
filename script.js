@@ -1,19 +1,42 @@
 // ==========================================================================
-// PORTFOLIO SCRIPT — ALBERT RAFAEL SINAGA
-// Features: Physics-Driven Lanyard Badge, Theme Toggle, Smooth UX
+// PORTFOLIO JAVASCRIPT — ALBERT RAFAEL SINAGA
+// Matter.js (Physics Lanyard Badge) + GSAP (Motion) + Lenis (Smooth Scroll)
 // ==========================================================================
 
 (() => {
     'use strict';
 
     // ==========================================================================
-    // 1. THEME TOGGLE WITH LOCALSTORAGE PERSISTENCE
+    // 1. LENIS SMOOTH SCROLL
+    // ==========================================================================
+    let lenis = null;
+    try {
+        if (typeof Lenis !== 'undefined') {
+            lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smoothWheel: true,
+                touchMultiplier: 1.5,
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+        }
+    } catch (e) {
+        console.warn('Lenis scroll error:', e);
+    }
+
+    // ==========================================================================
+    // 2. THEME TOGGLE (LIGHT / DARK)
     // ==========================================================================
     const themeBtn = document.querySelector('#theme');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     const storedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    // Default: light mode (editorial vibe), or respect stored preference
+    // Default to clean light mode (Sam Cheng aesthetic), or respect preference
     if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
         document.body.classList.add('dark');
         if (themeBtn) themeBtn.textContent = '☀';
@@ -29,145 +52,91 @@
             try {
                 localStorage.setItem('theme', isDark ? 'dark' : 'light');
             } catch (e) {}
-            // Update canvas strap color on theme change
-            if (window.renderLanyardStrap) window.renderLanyardStrap();
         });
     }
 
     // ==========================================================================
-    // 2. MOBILE NAVIGATION MENU
+    // 3. ABOUT DRAWER MODAL ([MORE] BUTTON)
     // ==========================================================================
-    const menuBtn = document.querySelector('#menu');
-    const navLinks = document.querySelector('.nav-links');
+    const aboutDrawer = document.getElementById('about-drawer');
+    const openAboutBtns = [
+        document.getElementById('btn-open-about'),
+        document.getElementById('btn-open-about-nav'),
+        document.getElementById('btn-open-about-mobile'),
+    ].filter(Boolean);
+    const closeAboutBtn = document.getElementById('btn-close-about');
 
-    if (menuBtn && navLinks) {
-        menuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('open');
-            menuBtn.setAttribute('aria-expanded', navLinks.classList.contains('open'));
-        });
+    const openDrawer = () => {
+        if (!aboutDrawer) return;
+        aboutDrawer.setAttribute('open', '');
+        document.body.style.overflow = 'hidden';
+    };
 
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('open');
-                menuBtn.setAttribute('aria-expanded', 'false');
-            });
+    const closeDrawer = () => {
+        if (!aboutDrawer) return;
+        aboutDrawer.removeAttribute('open');
+        document.body.style.overflow = '';
+    };
+
+    openAboutBtns.forEach(btn => btn.addEventListener('click', openDrawer));
+    if (closeAboutBtn) closeAboutBtn.addEventListener('click', closeDrawer);
+
+    if (aboutDrawer) {
+        aboutDrawer.addEventListener('click', (e) => {
+            if (e.target === aboutDrawer) closeDrawer();
         });
     }
 
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && aboutDrawer && aboutDrawer.hasAttribute('open')) {
+            closeDrawer();
+        }
+    });
+
     // ==========================================================================
-    // 3. FOOTER YEAR
+    // 4. FOOTER YEAR & FORM (AJAX VIA FETCH)
     // ==========================================================================
-    const yearEl = document.querySelector('#year');
+    const yearEl = document.getElementById('year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    // ==========================================================================
-    // 4. ANIMATED STATS COUNTER
-    // ==========================================================================
-    const countObserver = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-            entry.target.querySelectorAll('[data-count]').forEach(el => {
-                const target = +el.dataset.count;
-                const suffix = el.dataset.suffix || '';
-                let startTimestamp = null;
-                const duration = 1400;
-
-                const step = (now) => {
-                    if (!startTimestamp) startTimestamp = now;
-                    const progress = Math.min((now - startTimestamp) / duration, 1);
-                    // Ease out cubic
-                    const eased = 1 - Math.pow(1 - progress, 3);
-                    el.textContent = Math.round(target * eased) + suffix;
-                    if (progress < 1) requestAnimationFrame(step);
-                };
-                requestAnimationFrame(step);
-            });
-            countObserver.unobserve(entry.target);
-        });
-    }, { threshold: 0.3 });
-
-    document.querySelectorAll('.stats-strip').forEach(el => countObserver.observe(el));
-
-    // ==========================================================================
-    // 5. CERTIFICATE LIGHTBOX MODAL
-    // ==========================================================================
-    const lightbox = document.createElement('div');
-    lightbox.id = 'lightbox';
-    lightbox.innerHTML = '<button aria-label="Close modal">×</button><img alt="Preview Certificate">';
-    document.body.append(lightbox);
-    const lbImg = lightbox.querySelector('img');
-
-    document.querySelectorAll('.cert-card').forEach(card => {
-        card.addEventListener('click', (e) => {
-            if (e.target.closest('a')) return;
-            const img = card.querySelector('img');
-            if (img) {
-                lbImg.src = img.src;
-                lightbox.classList.add('open');
-            }
-        });
-    });
-
-    lightbox.addEventListener('click', () => lightbox.classList.remove('open'));
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') lightbox.classList.remove('open');
-    });
-
-    // ==========================================================================
-    // 6. BACK TO TOP BUTTON
-    // ==========================================================================
-    const topBtn = document.createElement('button');
-    topBtn.id = 'top';
-    topBtn.setAttribute('aria-label', 'Back to top');
-    topBtn.textContent = '↑';
-    topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-    document.body.append(topBtn);
-
-    window.addEventListener('scroll', () => {
-        topBtn.classList.toggle('show', window.scrollY > 400);
-    }, { passive: true });
-
-    // ==========================================================================
-    // 7. CONTACT FORM (AJAX VIA FETCH)
-    // ==========================================================================
-    const contactForm = document.querySelector('#form');
+    const contactForm = document.getElementById('form');
     if (contactForm) {
         const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const originalBtnHTML = submitBtn ? submitBtn.innerHTML : 'Send Message ↗';
+        const originalText = submitBtn ? submitBtn.textContent : 'Send ↗';
 
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             if (submitBtn) {
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span>Sending...</span> ⏳';
+                submitBtn.textContent = 'Sending... ⏳';
             }
 
             try {
                 const formData = new FormData(contactForm);
-                const response = await fetch(contactForm.action, {
+                const res = await fetch(contactForm.action, {
                     method: 'POST',
                     body: formData,
                     headers: { 'Accept': 'application/json' }
                 });
 
-                if (response.ok) {
+                if (res.ok) {
                     contactForm.reset();
-                    if (submitBtn) submitBtn.innerHTML = '<span>Message Sent!</span> ✓';
+                    if (submitBtn) submitBtn.textContent = 'Sent! ✓';
                     setTimeout(() => {
                         if (submitBtn) {
                             submitBtn.disabled = false;
-                            submitBtn.innerHTML = originalBtnHTML;
+                            submitBtn.textContent = originalText;
                         }
                     }, 4000);
                 } else {
-                    throw new Error('Form submission failed');
+                    throw new Error('Error sending message');
                 }
             } catch (err) {
-                if (submitBtn) submitBtn.innerHTML = '<span>Failed to send. Try again!</span> ✕';
+                if (submitBtn) submitBtn.textContent = 'Failed ✕';
                 setTimeout(() => {
                     if (submitBtn) {
                         submitBtn.disabled = false;
-                        submitBtn.innerHTML = originalBtnHTML;
+                        submitBtn.textContent = originalText;
                     }
                 }, 4000);
             }
@@ -175,225 +144,224 @@
     }
 
     // ==========================================================================
-    // 8. PHYSICS-DRIVEN INTERACTIVE LANYARD BADGE ENGINE
+    // 5. MATTER.JS PHYSICS-DRIVEN INTERACTIVE LANYARD BADGE ENGINE
     // ==========================================================================
-    const stage = document.getElementById('lanyard-stage');
     const canvas = document.getElementById('lanyard-canvas');
-    const badge = document.getElementById('lanyard-badge');
-    const hint = document.querySelector('.lanyard-hint');
+    const badgeCard = document.getElementById('lanyard-badge');
+    const viewport = document.getElementById('lanyard-viewport');
+    const hint = document.querySelector('.lanyard-drag-hint');
 
-    if (stage && canvas && badge) {
+    if (canvas && badgeCard && viewport && typeof Matter !== 'undefined') {
+        const { Engine, Bodies, Composite, Constraint, Mouse, MouseConstraint, Runner } = Matter;
+
+        const engine = Engine.create({
+            gravity: { x: 0, y: 1.1, scale: 0.001 }
+        });
+
         const ctx = canvas.getContext('2d');
-        let width = stage.clientWidth;
-        let height = stage.clientHeight;
+        let width = viewport.clientWidth;
+        let height = viewport.clientHeight;
 
-        const resize = () => {
-            width = stage.clientWidth;
-            height = stage.clientHeight;
-            const dpr = window.devicePixelRatio || 1;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const updateCanvasSize = () => {
+            width = viewport.clientWidth;
+            height = viewport.clientHeight;
             canvas.width = width * dpr;
             canvas.height = height * dpr;
+            ctx.resetTransform();
             ctx.scale(dpr, dpr);
         };
-        resize();
-        window.addEventListener('resize', resize);
+        updateCanvasSize();
+        window.addEventListener('resize', updateCanvasSize);
 
-        // Simulation parameters
-        const restLength = 145; // resting strap length
-        let anchorX = width / 2;
-        let anchorY = 0;
+        // Rope & Badge Physics Bodies
+        const anchorX = () => width > 768 ? width * 0.54 : width * 0.5;
+        let anchor = { x: anchorX(), y: -10 };
 
-        let posX = anchorX;
-        let posY = restLength;
-        let velX = 0;
-        let velY = 0;
+        const segments = 6;
+        const segmentLen = 28;
+        const group = Matter.Body.nextGroup(true);
 
-        let angle = 0;
-        let angleVel = 0;
+        const ropeLinks = [];
+        for (let i = 0; i < segments; i++) {
+            const link = Bodies.circle(anchor.x, (i + 1) * segmentLen, 6, {
+                collisionFilter: { group: group },
+                frictionAir: 0.06,
+                density: 0.002,
+                render: { visible: false }
+            });
+            ropeLinks.push(link);
+            Composite.add(engine.world, link);
+        }
 
-        let isDragging = false;
-        let dragOffsetX = 0;
-        let dragOffsetY = 0;
-        let lastPointerX = 0;
-        let lastPointerY = 0;
-        let lastPointerTime = 0;
+        // Anchor constraint to first link
+        const anchorConstraint = Constraint.create({
+            pointA: anchor,
+            bodyB: ropeLinks[0],
+            stiffness: 0.95,
+            damping: 0.08,
+            length: segmentLen
+        });
+        Composite.add(engine.world, anchorConstraint);
 
-        // Reset badge rest position relative to anchor
-        const updateAnchor = () => {
-            anchorX = width / 2;
-            anchorY = 0;
-        };
+        // Constraints between links
+        for (let i = 0; i < segments - 1; i++) {
+            Composite.add(engine.world, Constraint.create({
+                bodyA: ropeLinks[i],
+                bodyB: ropeLinks[i + 1],
+                stiffness: 0.95,
+                damping: 0.08,
+                length: segmentLen
+            }));
+        }
 
-        // Pointer event handlers
-        const onPointerDown = (e) => {
-            isDragging = true;
-            badge.setPointerCapture(e.pointerId);
+        // Badge Rigid Body
+        const cardWidth = 236;
+        const cardHeight = 340;
+        const cardHalfH = cardHeight / 2;
 
-            const rect = stage.getBoundingClientRect();
-            const pointerX = e.clientX - rect.left;
-            const pointerY = e.clientY - rect.top;
+        const badgeBody = Bodies.rectangle(
+            anchor.x,
+            segments * segmentLen + cardHalfH + 20,
+            cardWidth,
+            cardHeight,
+            {
+                collisionFilter: { group: group },
+                chamfer: { radius: 16 },
+                density: 0.006,
+                frictionAir: 0.045,
+                render: { visible: false }
+            }
+        );
+        Composite.add(engine.world, badgeBody);
 
-            dragOffsetX = posX - pointerX;
-            dragOffsetY = posY - pointerY;
+        // Constraint connecting last rope link to top attachment of badge
+        const badgeConstraint = Constraint.create({
+            bodyA: ropeLinks[segments - 1],
+            bodyB: badgeBody,
+            pointB: { x: 0, y: -cardHalfH + 12 },
+            stiffness: 0.92,
+            damping: 0.08,
+            length: 12
+        });
+        Composite.add(engine.world, badgeConstraint);
 
-            lastPointerX = pointerX;
-            lastPointerY = pointerY;
-            lastPointerTime = performance.now();
+        // Mouse Constraint for grabbing & dragging
+        const mouse = Mouse.create(viewport);
+        const mouseConstraint = MouseConstraint.create(engine, {
+            mouse: mouse,
+            constraint: {
+                stiffness: 0.25,
+                damping: 0.1,
+                render: { visible: false }
+            }
+        });
+        Composite.add(engine.world, mouseConstraint);
 
-            velX = 0;
-            velY = 0;
-
-            if (hint) {
+        // Hide hint once interacted
+        let hasInteracted = false;
+        Matter.Events.on(mouseConstraint, 'startdrag', () => {
+            if (!hasInteracted && hint) {
+                hasInteracted = true;
                 hint.style.opacity = '0';
                 setTimeout(() => hint.remove(), 400);
             }
-        };
+        });
 
-        const onPointerMove = (e) => {
-            if (!isDragging) return;
-            const rect = stage.getBoundingClientRect();
-            const pointerX = e.clientX - rect.left;
-            const pointerY = e.clientY - rect.top;
+        // Run the physics engine
+        const runner = Runner.create();
+        Runner.run(runner, engine);
 
-            const now = performance.now();
-            const dt = Math.max((now - lastPointerTime) / 1000, 0.016);
+        // Handle window resize dynamically adjusting anchor
+        window.addEventListener('resize', () => {
+            anchor.x = anchorX();
+            anchorConstraint.pointA.x = anchor.x;
+        });
 
-            // Compute throw velocity
-            velX = (pointerX - lastPointerX) / dt * 0.035;
-            velY = (pointerY - lastPointerY) / dt * 0.035;
-
-            lastPointerX = pointerX;
-            lastPointerY = pointerY;
-            lastPointerTime = now;
-
-            posX = pointerX + dragOffsetX;
-            posY = Math.max(pointerY + dragOffsetY, 35); // prevent badge going way above ceiling
-        };
-
-        const onPointerUp = (e) => {
-            if (!isDragging) return;
-            isDragging = false;
-            try { badge.releasePointerCapture(e.pointerId); } catch (_) {}
-        };
-
-        badge.addEventListener('pointerdown', onPointerDown);
-        window.addEventListener('pointermove', onPointerMove);
-        window.addEventListener('pointerup', onPointerUp);
-        window.addEventListener('pointercancel', onPointerUp);
-
-        // Lanyard render function for strap ribbon
-        const drawStrap = (ax, ay, bx, by) => {
+        // Draw Ribbon & Sync Badge position in Render Loop
+        const renderLoop = () => {
             ctx.clearRect(0, 0, width, height);
 
             const isDark = document.body.classList.contains('dark');
-            const strapMainColor = isDark ? '#e2e4e8' : '#141517';
-            const strapAccentColor = isDark ? '#141517' : '#ffffff';
+            const ribbonColor = isDark ? '#e4e5e7' : '#111214';
+            const stitchColor = isDark ? '#111214' : '#f5f5f5';
 
-            const strapWidth = 14;
-
-            // Draw shadow of strap
-            ctx.save();
-            ctx.beginPath();
-            ctx.moveTo(ax, ay);
-
-            // Curve control point based on sag/stretch
-            const midX = (ax + bx) / 2 + (bx - ax) * 0.08;
-            const midY = (ay + by) / 2 + 10;
-
-            ctx.quadraticCurveTo(midX, midY, bx, by);
-            ctx.lineWidth = strapWidth;
-            ctx.strokeStyle = isDark ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0.12)';
-            ctx.lineCap = 'round';
-            ctx.stroke();
-            ctx.restore();
-
-            // Draw main ribbon
-            ctx.save();
-            ctx.beginPath();
-            ctx.moveTo(ax, ay);
-            ctx.quadraticCurveTo(midX, midY, bx, by);
-            ctx.lineWidth = strapWidth;
-            ctx.strokeStyle = strapMainColor;
-            ctx.lineCap = 'round';
-            ctx.stroke();
-
-            // Stitching / woven stripe line in the center
-            ctx.beginPath();
-            ctx.moveTo(ax, ay);
-            ctx.quadraticCurveTo(midX, midY, bx, by);
-            ctx.lineWidth = 2;
-            ctx.strokeStyle = strapAccentColor;
-            ctx.setLineDash([4, 4]);
-            ctx.stroke();
-
-            // Top mount clasp bracket at ceiling
-            ctx.fillStyle = isDark ? '#8e929b' : '#3c4048';
-            ctx.fillRect(ax - 12, 0, 24, 7);
-            ctx.restore();
-        };
-
-        window.renderLanyardStrap = () => drawStrap(anchorX, anchorY, posX, posY);
-
-        // Physics step & animation loop
-        let lastFrameTime = performance.now();
-
-        const animate = (currentTime) => {
-            updateAnchor();
-
-            const dt = Math.min((currentTime - lastFrameTime) / 1000, 0.04);
-            lastFrameTime = currentTime;
-
-            if (!isDragging) {
-                // Vector from anchor to badge
-                const dx = posX - anchorX;
-                const dy = posY - anchorY;
-                const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-
-                // Hooke's Spring Law
-                const stretch = dist - restLength;
-                const springStrength = 0.08;
-                const force = -springStrength * stretch;
-
-                const fx = (dx / dist) * force;
-                const fy = (dy / dist) * force + 0.9; // Gravity pull
-
-                velX = (velX + fx) * 0.94; // Air damping
-                velY = (velY + fy) * 0.94;
-
-                posX += velX;
-                posY += velY;
-
-                // Pendulum angle physics
-                const targetAngle = Math.atan2(dx, dy);
-                const angleDiff = targetAngle - angle;
-                const angleForce = angleDiff * 0.12;
-
-                angleVel = (angleVel + angleForce) * 0.91;
-                angle += angleVel;
-            } else {
-                // When dragging, tilt card according to displacement & speed
-                const dx = posX - anchorX;
-                const dy = Math.max(posY - anchorY, 40);
-                const targetAngle = Math.atan2(dx, dy) * 0.85;
-
-                angleVel = (targetAngle - angle) * 0.3;
-                angle += angleVel;
+            // 1. Gather spine points along the lanyard
+            const points = [
+                { x: anchor.x, y: anchor.y }
+            ];
+            for (let i = 0; i < segments; i++) {
+                points.push(ropeLinks[i].position);
             }
+            // Badge attachment point
+            const attachPoint = {
+                x: badgeBody.position.x + Math.sin(badgeBody.angle) * (-cardHalfH + 12),
+                y: badgeBody.position.y + Math.cos(badgeBody.angle) * (-cardHalfH + 12)
+            };
+            points.push(attachPoint);
 
-            // Draw the strap
-            drawStrap(anchorX, anchorY, posX, posY);
+            // 2. Draw shadow ribbon
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            for (let i = 1; i < points.length - 1; i++) {
+                const xc = (points[i].x + points[i + 1].x) / 2;
+                const yc = (points[i].y + points[i + 1].y) / 2;
+                ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+            }
+            ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
+            ctx.lineWidth = 14;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.strokeStyle = isDark ? 'rgba(0,0,0,0.45)' : 'rgba(0,0,0,0.12)';
+            ctx.stroke();
+            ctx.restore();
 
-            // Transform Badge Card DOM element
-            const badgeWidth = badge.offsetWidth || 250;
-            const tx = posX - badgeWidth / 2;
-            const ty = posY;
-            const deg = (angle * 180) / Math.PI;
+            // 3. Draw main lanyard strap
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            for (let i = 1; i < points.length - 1; i++) {
+                const xc = (points[i].x + points[i + 1].x) / 2;
+                const yc = (points[i].y + points[i + 1].y) / 2;
+                ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+            }
+            ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
+            ctx.lineWidth = 14;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.strokeStyle = ribbonColor;
+            ctx.stroke();
 
-            badge.style.transform = `translate3d(${tx}px, ${ty}px, 0) rotate(${deg}deg)`;
+            // 4. Center stitching on ribbon
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            for (let i = 1; i < points.length - 1; i++) {
+                const xc = (points[i].x + points[i + 1].x) / 2;
+                const yc = (points[i].y + points[i + 1].y) / 2;
+                ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+            }
+            ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
+            ctx.lineWidth = 2;
+            ctx.setLineDash([4, 4]);
+            ctx.strokeStyle = stitchColor;
+            ctx.stroke();
 
-            requestAnimationFrame(animate);
+            // 5. Ceiling Mount Hardware
+            ctx.fillStyle = isDark ? '#71717a' : '#27272a';
+            ctx.fillRect(anchor.x - 14, 0, 28, 8);
+            ctx.restore();
+
+            // 6. Transform Badge DOM Element with matrix / 3D transform
+            const bx = badgeBody.position.x - cardWidth / 2;
+            const by = badgeBody.position.y - cardHalfH;
+            const deg = (badgeBody.angle * 180) / Math.PI;
+
+            badgeCard.style.transform = `translate3d(${bx}px, ${by}px, 0) rotate(${deg}deg)`;
+
+            requestAnimationFrame(renderLoop);
         };
 
-        requestAnimationFrame(animate);
+        requestAnimationFrame(renderLoop);
     }
 })();
