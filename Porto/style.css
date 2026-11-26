@@ -143,10 +143,19 @@ body.dark .top-nav {
     background: rgba(9, 10, 12, 0.85);
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text);
+    flex-shrink: 0;
+}
+
 .logo-text {
-    font-size: 15px;
+    font-size: clamp(14px, 3.6vw, 15px);
     font-weight: 500;
     letter-spacing: -0.01em;
+    white-space: nowrap;
 }
 
 .nav-menu {
@@ -408,13 +417,15 @@ canvas.badge-canvas:active {
     50% { transform: translate(-50%, -4px); }
 }
 
-/* GIANT BACKGROUND NAME */
+/* GIANT EDITORIAL NAME */
 .hero-giant-name {
     position: absolute;
     bottom: clamp(20px, 3.2vw, 48px);
     left: var(--page-gutter);
+    right: var(--page-gutter);
+    width: calc(100% - 2 * var(--page-gutter));
     font-family: var(--font-serif);
-    font-size: clamp(48px, 10.5vw, 136px);
+    font-size: clamp(48px, 10.8vw, 142px);
     font-weight: 400;
     line-height: 0.95;
     letter-spacing: -0.025em;
@@ -423,6 +434,8 @@ canvas.badge-canvas:active {
     z-index: 1;
     color: var(--text);
     opacity: 0.92;
+    display: flex;
+    justify-content: space-between;
 }
 
 .hero-giant-name span {
@@ -1583,23 +1596,44 @@ body.dark .loader-skip-btn kbd {
         display: none;
     }
 
+    .logo-surname {
+        display: none;
+    }
+
     .hero {
         height: 100svh;
         min-height: 520px;
     }
 
-    .hero-intro,
-    .hero-education {
-        position: static;
-        top: auto;
+    .hero-intro {
+        position: absolute;
+        top: 84px;
+        left: var(--page-gutter);
         padding: 0;
         text-align: left;
+        font-size: 14px;
+        max-width: 240px;
+        z-index: 10;
+    }
+
+    .hero-education {
+        display: none;
     }
 
     .hero-giant-name {
-        font-size: clamp(34px, 10vw, 46px);
-        bottom: 24px;
+        font-size: clamp(38px, 11.5vw, 54px);
+        bottom: 22px;
         left: var(--page-gutter);
+        right: var(--page-gutter);
+        width: calc(100% - 2 * var(--page-gutter));
+        display: flex;
+        justify-content: space-between;
+        white-space: nowrap;
+    }
+
+    .lanyard-drag-hint {
+        bottom: 74px;
+    }
     }
 
     .skills-row {

@@ -605,10 +605,10 @@ import { createBadgeScene } from './assets/badge/badge-scene.js';
         }
 
         // Start sequence on page load
-        if (document.readyState === 'complete') {
+        if (document.readyState !== 'loading') {
             startSequence();
         } else {
-            window.addEventListener('load', startSequence);
+            document.addEventListener('DOMContentLoaded', startSequence);
         }
     }
 })();
