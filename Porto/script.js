@@ -1,7 +1,9 @@
 // ==========================================================================
 // PORTFOLIO JAVASCRIPT — ALBERT RAFAEL SINAGA
-// Matter.js (Physics Lanyard Badge) + GSAP (Motion) + Lenis (Smooth Scroll)
+// 3D Physics Lanyard Badge (Three.js + Rapier) + Lenis Smooth Scroll
 // ==========================================================================
+
+import { createBadgeScene } from './assets/badge/badge-scene.js';
 
 (() => {
     'use strict';
@@ -36,7 +38,6 @@
     const storedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    // Default to clean light mode (Sam Cheng aesthetic), or respect preference
     if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
         document.body.classList.add('dark');
         if (themeBtn) themeBtn.textContent = '☀';
@@ -144,224 +145,97 @@
     }
 
     // ==========================================================================
-    // 5. MATTER.JS PHYSICS-DRIVEN INTERACTIVE LANYARD BADGE ENGINE
+    // 5. 3D PHYSICS LANYARD BADGE ENGINE (THREE.JS + RAPIER3D)
     // ==========================================================================
     const canvas = document.getElementById('lanyard-canvas');
-    const badgeCard = document.getElementById('lanyard-badge');
-    const viewport = document.getElementById('lanyard-viewport');
-    const hint = document.querySelector('.lanyard-drag-hint');
+    const stillImg = document.getElementById('badge-still-img');
+    const hint = document.getElementById('lanyard-hint');
 
-    if (canvas && badgeCard && viewport && typeof Matter !== 'undefined') {
-        const { Engine, Bodies, Composite, Constraint, Mouse, MouseConstraint, Runner } = Matter;
-
-        const engine = Engine.create({
-            gravity: { x: 0, y: 1.1, scale: 0.001 }
-        });
-
-        const ctx = canvas.getContext('2d');
-        let width = viewport.clientWidth;
-        let height = viewport.clientHeight;
-
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        const updateCanvasSize = () => {
-            width = viewport.clientWidth;
-            height = viewport.clientHeight;
-            canvas.width = width * dpr;
-            canvas.height = height * dpr;
-            ctx.resetTransform();
-            ctx.scale(dpr, dpr);
+    if (canvas && createBadgeScene) {
+        const config = {
+            physics: {
+                gravity: 9.81,
+                mass: 0.72,
+                damping: 0.45,
+                mouseForce: 1,
+                grip: 100,
+                strapStiffness: 90,
+                antiTwist: 2.2,
+                twistProgression: 3,
+                swivelDamping: 0.15
+            },
+            material: {
+                unlitArtwork: true,
+                wear: 0.2,
+                edgeDamage: 0.55,
+                roughness: 0.012,
+                transmission: 1,
+                thickness: 0.006,
+                metalRoughness: 0.2,
+                strapColor: '#1c1e22'
+            },
+            lighting: {
+                exposure: 1,
+                keyLight: 2.5,
+                reflections: 0.9,
+                shadow: 0.13
+            },
+            background: {
+                color: '#fafafa',
+                transparent: true,
+                filterBackground: false
+            },
+            filters: { enabled: false },
+            plotter: { enabled: false },
+            view: { angle: 0, zoom: 1 },
+            paused: false
         };
-        updateCanvasSize();
-        window.addEventListener('resize', updateCanvasSize);
 
-        // Rope & Badge Physics Bodies
-        const anchorX = () => width > 768 ? width * 0.54 : width * 0.5;
-        let anchor = { x: anchorX(), y: -10 };
-
-        const segments = 6;
-        const segmentLen = 28;
-        const group = Matter.Body.nextGroup(true);
-
-        const ropeLinks = [];
-        for (let i = 0; i < segments; i++) {
-            const link = Bodies.circle(anchor.x, (i + 1) * segmentLen, 6, {
-                collisionFilter: { group: group },
-                frictionAir: 0.06,
-                density: 0.002,
-                render: { visible: false }
-            });
-            ropeLinks.push(link);
-            Composite.add(engine.world, link);
-        }
-
-        // Anchor constraint to first link
-        const anchorConstraint = Constraint.create({
-            pointA: anchor,
-            bodyB: ropeLinks[0],
-            stiffness: 0.95,
-            damping: 0.08,
-            length: segmentLen
-        });
-        Composite.add(engine.world, anchorConstraint);
-
-        // Constraints between links
-        for (let i = 0; i < segments - 1; i++) {
-            Composite.add(engine.world, Constraint.create({
-                bodyA: ropeLinks[i],
-                bodyB: ropeLinks[i + 1],
-                stiffness: 0.95,
-                damping: 0.08,
-                length: segmentLen
-            }));
-        }
-
-        // Badge Rigid Body
-        const cardWidth = 236;
-        const cardHeight = 340;
-        const cardHalfH = cardHeight / 2;
-
-        const badgeBody = Bodies.rectangle(
-            anchor.x,
-            segments * segmentLen + cardHalfH + 20,
-            cardWidth,
-            cardHeight,
-            {
-                collisionFilter: { group: group },
-                chamfer: { radius: 16 },
-                density: 0.006,
-                frictionAir: 0.045,
-                render: { visible: false }
-            }
-        );
-        Composite.add(engine.world, badgeBody);
-
-        // Constraint connecting last rope link to top attachment of badge
-        const badgeConstraint = Constraint.create({
-            bodyA: ropeLinks[segments - 1],
-            bodyB: badgeBody,
-            pointB: { x: 0, y: -cardHalfH + 12 },
-            stiffness: 0.92,
-            damping: 0.08,
-            length: 12
-        });
-        Composite.add(engine.world, badgeConstraint);
-
-        // Mouse Constraint for grabbing & dragging
-        const mouse = Mouse.create(viewport);
-        const mouseConstraint = MouseConstraint.create(engine, {
-            mouse: mouse,
-            constraint: {
-                stiffness: 0.25,
-                damping: 0.1,
-                render: { visible: false }
-            }
-        });
-        Composite.add(engine.world, mouseConstraint);
-
-        // Hide hint once interacted
         let hasInteracted = false;
-        Matter.Events.on(mouseConstraint, 'startdrag', () => {
-            if (!hasInteracted && hint) {
+        const onStateChange = (state) => {
+            if (state === 'live') {
+                requestAnimationFrame(() => {
+                    if (stillImg) stillImg.classList.add('hidden');
+                });
+            }
+            if (state === 'dragging' && !hasInteracted) {
                 hasInteracted = true;
-                hint.style.opacity = '0';
-                setTimeout(() => hint.remove(), 400);
+                if (hint) {
+                    hint.style.opacity = '0';
+                    setTimeout(() => hint.remove(), 400);
+                }
             }
-        });
-
-        // Run the physics engine
-        const runner = Runner.create();
-        Runner.run(runner, engine);
-
-        // Handle window resize dynamically adjusting anchor
-        window.addEventListener('resize', () => {
-            anchor.x = anchorX();
-            anchorConstraint.pointA.x = anchor.x;
-        });
-
-        // Draw Ribbon & Sync Badge position in Render Loop
-        const renderLoop = () => {
-            ctx.clearRect(0, 0, width, height);
-
-            const isDark = document.body.classList.contains('dark');
-            const ribbonColor = isDark ? '#e4e5e7' : '#111214';
-            const stitchColor = isDark ? '#111214' : '#f5f5f5';
-
-            // 1. Gather spine points along the lanyard
-            const points = [
-                { x: anchor.x, y: anchor.y }
-            ];
-            for (let i = 0; i < segments; i++) {
-                points.push(ropeLinks[i].position);
-            }
-            // Badge attachment point
-            const attachPoint = {
-                x: badgeBody.position.x + Math.sin(badgeBody.angle) * (-cardHalfH + 12),
-                y: badgeBody.position.y + Math.cos(badgeBody.angle) * (-cardHalfH + 12)
-            };
-            points.push(attachPoint);
-
-            // 2. Draw shadow ribbon
-            ctx.save();
-            ctx.beginPath();
-            ctx.moveTo(points[0].x, points[0].y);
-            for (let i = 1; i < points.length - 1; i++) {
-                const xc = (points[i].x + points[i + 1].x) / 2;
-                const yc = (points[i].y + points[i + 1].y) / 2;
-                ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
-            }
-            ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
-            ctx.lineWidth = 14;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-            ctx.strokeStyle = isDark ? 'rgba(0,0,0,0.45)' : 'rgba(0,0,0,0.12)';
-            ctx.stroke();
-            ctx.restore();
-
-            // 3. Draw main lanyard strap
-            ctx.save();
-            ctx.beginPath();
-            ctx.moveTo(points[0].x, points[0].y);
-            for (let i = 1; i < points.length - 1; i++) {
-                const xc = (points[i].x + points[i + 1].x) / 2;
-                const yc = (points[i].y + points[i + 1].y) / 2;
-                ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
-            }
-            ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
-            ctx.lineWidth = 14;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-            ctx.strokeStyle = ribbonColor;
-            ctx.stroke();
-
-            // 4. Center stitching on ribbon
-            ctx.beginPath();
-            ctx.moveTo(points[0].x, points[0].y);
-            for (let i = 1; i < points.length - 1; i++) {
-                const xc = (points[i].x + points[i + 1].x) / 2;
-                const yc = (points[i].y + points[i + 1].y) / 2;
-                ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
-            }
-            ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
-            ctx.lineWidth = 2;
-            ctx.setLineDash([4, 4]);
-            ctx.strokeStyle = stitchColor;
-            ctx.stroke();
-
-            // 5. Ceiling Mount Hardware
-            ctx.fillStyle = isDark ? '#71717a' : '#27272a';
-            ctx.fillRect(anchor.x - 14, 0, 28, 8);
-            ctx.restore();
-
-            // 6. Transform Badge DOM Element with matrix / 3D transform
-            const bx = badgeBody.position.x - cardWidth / 2;
-            const by = badgeBody.position.y - cardHalfH;
-            const deg = (badgeBody.angle * 180) / Math.PI;
-
-            badgeCard.style.transform = `translate3d(${bx}px, ${by}px, 0) rotate(${deg}deg)`;
-
-            requestAnimationFrame(renderLoop);
         };
 
-        requestAnimationFrame(renderLoop);
+        createBadgeScene(
+            canvas,
+            () => config,
+            onStateChange,
+            'assets/badge/badge-artwork.png'
+        ).then(scene => {
+            // Subtle pendulum swing on page scroll
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                const dy = window.scrollY - lastScrollY;
+                lastScrollY = window.scrollY;
+                if (window.scrollY < window.innerHeight && Math.abs(dy) > 10 && scene?.nudge) {
+                    scene.nudge();
+                }
+            }, { passive: true });
+        }).catch(err => {
+            console.warn('3D Badge initialized with fallback:', err);
+        });
     }
+
+    // ==========================================================================
+    // 6. TOUCH SUPPORT FOR PROJECT FAN-OUT PREVIEWS ON MOBILE
+    // ==========================================================================
+    const projectRows = document.querySelectorAll('.project-row');
+    projectRows.forEach(row => {
+        row.addEventListener('click', (e) => {
+            if (e.target.closest('a')) return;
+            projectRows.forEach(r => { if (r !== row) r.classList.remove('active'); });
+            row.classList.toggle('active');
+        });
+    });
 })();

@@ -5,32 +5,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Albert Rafael Sinaga — Personal Site</title>
-    <meta name="description" content="Personal site of Albert Rafael Sinaga. Informatics student at Universitas Gunadarma designing products, web applications, and backend systems.">
+    <meta name="description" content="Personal site of Albert Rafael Sinaga. Informatics student at Universitas Gunadarma engineering web applications, machine learning systems, and robust software.">
     <meta name="author" content="Albert Rafael Sinaga">
     <meta name="theme-color" content="#fafafa">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Albert Rafael Sinaga — Personal Site">
-    <meta property="og:description" content="Personal site of Albert Rafael Sinaga. Designing and engineering products, web applications, and backend systems.">
-    <meta property="og:image" content="assets/foto.jpg">
+    <meta property="og:description" content="Personal site of Albert Rafael Sinaga. Designing and engineering software, web applications, and backend systems.">
+    <meta property="og:image" content="assets/badge/badge-artwork.png">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Albert Rafael Sinaga — Personal Site">
-    <meta name="twitter:description" content="Personal site of Albert Rafael Sinaga. Designing and engineering products, web applications, and backend systems.">
-    <meta name="twitter:image" content="assets/foto.jpg">
+    <meta name="twitter:description" content="Personal site of Albert Rafael Sinaga. Designing and engineering software, web applications, and backend systems.">
+    <meta name="twitter:image" content="assets/badge/badge-artwork.png">
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
 
-    <!-- Google Fonts: Instrument Serif + Plus Jakarta Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Core Libraries: Matter.js (Physics), GSAP (Motion), Lenis (Smooth Scroll) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <!-- Smooth Scrolling (Lenis) -->
     <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 
     <link rel="stylesheet" href="style.css">
@@ -52,13 +45,12 @@
             <button type="button" class="btn-more-nav" id="btn-open-about-nav">[more]</button>
             <a href="assets/cv.pdf" class="btn-resume" download>Resume ↓</a>
             <button id="theme" class="theme-btn" aria-label="Toggle theme">☾</button>
-            <button id="menu-btn" class="menu-toggle" aria-label="Toggle menu">☰</button>
         </div>
     </header>
 
     <main>
         <!-- ==========================================================================
-             HERO SECTION WITH PHYSICS-DRIVEN LANYARD BADGE & MASSIVE TYPOGRAPHY
+             HERO SECTION WITH 3D LANYARD BADGE & MASSIVE EDITORIAL TYPOGRAPHY
              ========================================================================== -->
         <section class="hero" id="home" aria-label="Introduction">
             <!-- Top Left Intro -->
@@ -74,55 +66,16 @@
                 @ Universitas Gunadarma
             </p>
 
-            <!-- Interactive Matter.js Lanyard Viewport -->
-            <div class="lanyard-viewport" id="lanyard-viewport">
-                <canvas id="lanyard-canvas"></canvas>
-
-                <!-- 3D Physics Lanyard Card Element -->
-                <div id="lanyard-badge" class="badge-card-container" role="button" tabindex="0" aria-label="Interactive ID Badge — Grab and fling me">
-                    <!-- Metal Ring & Clamp -->
-                    <div class="hardware-clasp">
-                        <div class="clasp-ring"></div>
-                        <div class="clasp-clip"></div>
-                    </div>
-
-                    <!-- Badge Surface -->
-                    <div class="badge-card-body">
-                        <div class="badge-slot-hole"></div>
-
-                        <div class="badge-top-row">
-                            <span class="badge-org-name">GUNADARMA / INFORMATICS</span>
-                            <span class="badge-pill-status">PASS • 2026</span>
-                        </div>
-
-                        <div class="badge-photo-frame">
-                            <img src="assets/foto.jpg" alt="Foto Albert Rafael Sinaga" class="badge-photo-img" draggable="false">
-                            <div class="badge-seal">UG</div>
-                        </div>
-
-                        <div class="badge-id-details">
-                            <h2 class="badge-name">Albert Rafael S.</h2>
-                            <p class="badge-role">Software Developer</p>
-                            <p class="badge-serial">ID // 2026-AR-DEV</p>
-                        </div>
-
-                        <div class="badge-bottom-bar">
-                            <div class="badge-barcode">
-                                <span></span><span></span><span></span><span></span><span></span><span></span>
-                                <span></span><span></span><span></span><span></span><span></span><span></span>
-                                <span></span><span></span><span></span><span></span><span></span><span></span>
-                            </div>
-                            <div class="badge-gold-chip"></div>
-                        </div>
-                    </div>
-
-                    <div class="lanyard-drag-hint">
-                        <span>✦ grab &amp; fling me</span>
-                    </div>
+            <!-- 3D Lanyard Badge (Sam Cheng Physical Simulation) -->
+            <div class="badge" id="lanyard-container">
+                <img class="still" id="badge-still-img" src="assets/badge/badge-still.webp" alt="Albert Rafael Sinaga badge" width="704" height="1768" fetchpriority="high" decoding="async">
+                <canvas id="lanyard-canvas" class="badge-canvas" aria-label="Albert Rafael Sinaga's interactive badge. Drag to move it."></canvas>
+                <div class="lanyard-drag-hint" id="lanyard-hint">
+                    <span>✦ grab &amp; fling me</span>
                 </div>
             </div>
 
-            <!-- Massive Background Typography -->
+            <!-- Massive Editorial Serif Typography -->
             <h1 class="hero-giant-name">
                 <span>Albert</span> <span>Rafael</span>
             </h1>
@@ -135,7 +88,7 @@
         </section>
 
         <!-- ==========================================================================
-             SELECTED WORK (FAN-OUT CARD SHOWCASE)
+             SELECTED WORK (FAN-OUT EDITORIAL SHOWCASE)
              ========================================================================== -->
         <section id="work" class="work-section" aria-label="Selected work">
             <div class="section-label-strip">
@@ -160,9 +113,9 @@
 
                     <!-- Fan-out card previews on hover -->
                     <div class="project-previews" aria-hidden="true">
-                        <img src="assets/filmfinder.jpg" alt="" class="card-preview card-p0" loading="lazy">
-                        <img src="assets/filmfinder.jpg" alt="" class="card-preview card-p1" loading="lazy">
-                        <img src="assets/filmfinder.jpg" alt="" class="card-preview card-p2" loading="lazy">
+                        <img src="assets/previews/filmfinder-0.jpg" alt="" class="card-preview card-p0" loading="lazy">
+                        <img src="assets/previews/filmfinder-1.jpg" alt="" class="card-preview card-p1" loading="lazy">
+                        <img src="assets/previews/filmfinder-2.jpg" alt="" class="card-preview card-p2" loading="lazy">
                     </div>
                 </div>
 
@@ -182,13 +135,13 @@
 
                     <!-- Fan-out card previews on hover -->
                     <div class="project-previews" aria-hidden="true">
-                        <img src="assets/fountain.jpg" alt="" class="card-preview card-p0" loading="lazy">
-                        <img src="assets/fountain.jpg" alt="" class="card-preview card-p1" loading="lazy">
-                        <img src="assets/fountain.jpg" alt="" class="card-preview card-p2" loading="lazy">
+                        <img src="assets/previews/fountain-0.jpg" alt="" class="card-preview card-p0" loading="lazy">
+                        <img src="assets/previews/fountain-1.jpg" alt="" class="card-preview card-p1" loading="lazy">
+                        <img src="assets/previews/fountain-2.jpg" alt="" class="card-preview card-p2" loading="lazy">
                     </div>
                 </div>
 
-                <!-- PROJECT 3: SUAP. SMART ORDERING -->
+                <!-- PROJECT 3: SUAP. SMART QR ORDERING -->
                 <div class="project-row" data-project="suap">
                     <div class="project-info">
                         <h2 class="project-name">SUAP.</h2>
@@ -203,16 +156,16 @@
 
                     <!-- Fan-out card previews on hover -->
                     <div class="project-previews" aria-hidden="true">
-                        <img src="assets/smart-ordering.jpg" alt="" class="card-preview card-p0" loading="lazy">
-                        <img src="assets/smart-ordering.jpg" alt="" class="card-preview card-p1" loading="lazy">
-                        <img src="assets/smart-ordering.jpg" alt="" class="card-preview card-p2" loading="lazy">
+                        <img src="assets/previews/smart-ordering-0.jpg" alt="" class="card-preview card-p0" loading="lazy">
+                        <img src="assets/previews/smart-ordering-1.jpg" alt="" class="card-preview card-p1" loading="lazy">
+                        <img src="assets/previews/smart-ordering-2.jpg" alt="" class="card-preview card-p2" loading="lazy">
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ==========================================================================
-             SKILLS (EDITORIAL CLUSTERS)
+             SKILLS (EDITORIAL TABLE)
              ========================================================================== -->
         <section id="skills" class="skills-section">
             <div class="section-label-strip">
@@ -237,7 +190,7 @@
         </section>
 
         <!-- ==========================================================================
-             CERTIFICATES (PINBOARD / GALLERY)
+             CERTIFICATES (EDITORIAL CREDENTIALS)
              ========================================================================== -->
         <section id="certificates" class="certs-section">
             <div class="section-label-strip">
@@ -296,7 +249,7 @@
                     <a class="social-pill email-pill" href="mailto:albertrafaelsinaga@gmail.com">albertrafaelsinaga@gmail.com</a>.
                 </p>
 
-                <!-- Unobtrusive Contact Form -->
+                <!-- Unobtrusive Minimal Contact Form -->
                 <div class="footer-form-box">
                     <form id="form" action="https://formspree.io/f/mbglnbpv" method="POST" class="minimal-form">
                         <div class="form-inputs">
@@ -373,7 +326,7 @@
         </div>
     </dialog>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 
 </html>
